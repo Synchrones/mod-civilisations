@@ -1,0 +1,3 @@
+# mod-civilisations
+Un mod que je suis en train de créer, c'est un projet qu'on a avec un amis. C'ets un mod minecraft en 1.12.2,
+qui rajoutera des civilisations... enfin si j'arrive à le faire...
