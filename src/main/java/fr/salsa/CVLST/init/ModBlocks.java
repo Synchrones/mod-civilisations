@@ -29,7 +29,7 @@ public class ModBlocks {
     public static final Block LupunaLeave = new CVLSTLeaves("lupuna_leave");
     public static final Block LupunaSapling = new CVLSTSaplings("lupuna_saplings");
 
-
+//a utiliser un jour ou l'autre...
     /*public static final Block plank = new CustomBlockPlank("planks");
     public static final Block leave = new CustomBlockLeave("leave");
     public static final Block log = new CustomBlockLog("log");
