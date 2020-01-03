@@ -31,4 +31,8 @@ public class CVLSTLeaves extends BlockLeaves {
     public BlockPlanks.EnumType getWoodType(int meta) {
         return null;
     }
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 }
