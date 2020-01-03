@@ -1,12 +1,12 @@
 package fr.salsa.CVLST.init;
 
 import fr.salsa.CVLST.blocks.CVLSTBlocks;
-import fr.salsa.CVLST.blocks.trees.CustomBlockLeave;
-import fr.salsa.CVLST.blocks.trees.CustomBlockLog;
-import fr.salsa.CVLST.blocks.trees.CustomBlockPlank;
-import fr.salsa.CVLST.blocks.trees.CustomBlockSapling;
+//import fr.salsa.CVLST.blocks.trees.CustomBlockSapling;//
+import fr.salsa.CVLST.blocks.trees.CVLSTLeaves;
+import fr.salsa.CVLST.blocks.trees.CVLSTLog;
+import fr.salsa.CVLST.blocks.trees.CVLSTSaplings;
+import fr.salsa.CVLST.blocks.trees.CVLSTPlank;
 import fr.salsa.CVLST.utils.References;
-import fr.salsa.CVLST.utils.handler.EnumHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -24,7 +24,13 @@ public class ModBlocks {
     public static final List<Block> BLOCKS = new ArrayList<Block>();
     public static final Block rubyBlock = new CVLSTBlocks("ruby_block", Material.IRON, 5.0f, 30.0f, 1, "pickaxe");
     public static final Block saphirBlock = new CVLSTBlocks("saphir_block", Material.IRON, 5.0f, 30.0f, 1, "pickaxe");
-    public static final Block plank = new CustomBlockPlank("planks");
+    public static final Block LupunaLog = new CVLSTLog("lupuna_log");
+    public static final Block LupunaPlank = new CVLSTPlank("lupuna_plank");
+    public static final Block LupunaLeave = new CVLSTLeaves("lupuna_leave");
+    public static final Block LupunaSapling = new CVLSTSaplings("lupuna_saplings");
+
+
+    /*public static final Block plank = new CustomBlockPlank("planks");
     public static final Block leave = new CustomBlockLeave("leave");
     public static final Block log = new CustomBlockLog("log");
     public static final Block sapling = new CustomBlockSapling("sapling");
@@ -39,12 +45,11 @@ public class ModBlocks {
         }
     }
 
-    public static void registerRender(Block block, int meta, String filename) {
+     public static void registerRender(Block block, int meta, String filename) {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), meta, new ModelResourceLocation(new ResourceLocation(References.MODID, filename), "inventory"));
-    }
+    }*/
 
-
-    @SubscribeEvent
+@SubscribeEvent
     public void registerModels(ModelRegistryEvent e) {
         for (Block b : BLOCKS) {
             registerModel(b);
