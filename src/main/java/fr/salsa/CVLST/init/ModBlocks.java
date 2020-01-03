@@ -49,7 +49,7 @@ public class ModBlocks {
         ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), meta, new ModelResourceLocation(new ResourceLocation(References.MODID, filename), "inventory"));
     }*/
 
-@SubscribeEvent
+    @SubscribeEvent
     public void registerModels(ModelRegistryEvent e) {
         for (Block b : BLOCKS) {
             registerModel(b);
@@ -58,6 +58,6 @@ public class ModBlocks {
 
     @SideOnly(Side.CLIENT)
     private void registerModel(Block block) {
-        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(new ResourceLocation(References.MODID, block.getUnlocalizedName().substring(5)), "inventory"));
+        ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(block), 0, new ModelResourceLocation(block.getRegistryName(), "inventory"));
     }
 }
