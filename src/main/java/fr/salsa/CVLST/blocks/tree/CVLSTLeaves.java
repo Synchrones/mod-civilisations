@@ -35,4 +35,17 @@ public class CVLSTLeaves extends BlockLeaves {
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
+    @Override
+    public BlockRenderLayer getBlockLayer() {
+        return BlockRenderLayer.TRANSLUCENT;
+    }
+    @Override
+    protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
+        return;
+    }
+
+    @Override
+    protected int getSaplingDropChance(IBlockState state) {
+        return 30;
+    }
 }
