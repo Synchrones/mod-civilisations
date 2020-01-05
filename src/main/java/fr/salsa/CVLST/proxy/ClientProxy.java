@@ -7,6 +7,8 @@ public class ClientProxy extends CommonProxy {
     @Override
     public void preInit(FMLPreInitializationEvent e){
         super.preInit(e);
+        MinecraftForge.EVENT_BUS.register(ModItems.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(ModBlocks.INSTANCE);
         RenderEntity.registerEntityRenders();
     }
 
