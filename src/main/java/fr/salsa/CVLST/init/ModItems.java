@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModItems {
+    public static final ModItems INSTANCE = new ModItems();
     public static final List<Item> ITEMS = new ArrayList<Item>();
     public static final Item.ToolMaterial RubyTool = EnumHelper.addToolMaterial("ruby_tools", 2, 1250, 30.0F, 20.0F, 20);
     public static final Item ruby = new CVLSTItems("ruby");
