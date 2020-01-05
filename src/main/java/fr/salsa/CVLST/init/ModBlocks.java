@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ModBlocks {
+    public static final ModItems INSTANCE = new ModItems();
     public static final List<Block> BLOCKS = new ArrayList<Block>();
     public static final Block rubyBlock = new CVLSTBlocks("ruby_block", Material.IRON, 5.0f, 30.0f, 1, "pickaxe");
     public static final Block saphirBlock = new CVLSTBlocks("saphir_block", Material.IRON, 5.0f, 30.0f, 1, "pickaxe");
