@@ -3,7 +3,9 @@ package fr.salsa.CVLST.blocks.trees;
 import fr.salsa.CVLST.ModMain;
 import fr.salsa.CVLST.init.ModBlocks;
 import fr.salsa.CVLST.init.ModItems;
+import fr.salsa.CVLST.world.feature.tree.WorldGenLupunaTree;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
@@ -15,11 +17,15 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenBigTree;
+import net.minecraft.world.gen.feature.WorldGenTrees;
+import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraftforge.event.terraingen.TerrainGen;
 
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class CVLSTSaplings extends BlockBush implements IGrowAble{
+public class CVLSTSaplings extends BlockBush implements IGrowable {
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
     protected static final AxisAlignedBB SAPLING_AABB = new AxisAlignedBB(0.09999999403953552D, 0.0D, 0.09999999403953552D, 0.8999999761581421D, 0.800000011920929D, 0.8999999761581421D);
 
@@ -85,22 +91,52 @@ public class CVLSTSaplings extends BlockBush implements IGrowAble{
     protected boolean canSustainBush(IBlockState state) {
         return state.getBlock() == Blocks.GRASS || state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.FARMLAND;
     }
-}
- @Override
-    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
-        
-    }
-//a mettre quand code arbre fini
-    /*@Override
+    @Override
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
-        if (!worldIn.isRemote)
-        {
+        if (!worldIn.isRemote) {
             super.updateTick(worldIn, pos, state, rand);
-
-            if (worldIn.getLightFromNeighbors(pos.up()) >= 9 && rand.nextInt(7) == 0)
-            {
+            if (worldIn.getLightFromNeighbors(pos.up()) >= 9 && rand.nextInt(7) == 0) {
                 this.grow(worldIn, rand, pos, state);
             }
         }
     }
-}*/
+
+    @Override
+    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+        if(((Integer)state.getValue(STAGE)).intValue() == 0){
+            worldIn.setBlockState(pos, state.cycleProperty(STAGE), 4);
+        }
+        else {
+            this.generateTree(worldIn, rand, pos, state);
+        }
+    }
+    public void generateTree(World world, Random rand, BlockPos pos, IBlockState state){
+        if(TerrainGen.saplingGrowTree(world, rand, pos)) return;
+        WorldGenerator gen = (WorldGenerator)(rand.nextInt(10) == 0 ? new WorldGenBigTree(false) : new WorldGenTrees(false));
+        boolean flag = false;
+        if(state.getBlock() == ModBlocks.LupunaSapling){
+            gen = new WorldGenLupunaTree();
+        }
+        IBlockState iBlockState = Blocks.AIR.getDefaultState();
+        if(flag){
+            world.setBlockState(pos.add(0,0,0), iBlockState, 4);
+            world.setBlockState(pos.add(1,0,0), iBlockState, 4);
+            world.setBlockState(pos.add(0,0,1), iBlockState, 4);
+            world.setBlockState(pos.add(1,0,1), iBlockState, 4);
+        }
+        else {
+            world.setBlockState(pos, iBlockState, 4);
+        }
+        if(!gen.generate(world, rand, pos)){
+            if(flag){
+                world.setBlockState(pos.add(0,0,0), iBlockState, 4);
+                world.setBlockState(pos.add(1,0,0), iBlockState, 4);
+                world.setBlockState(pos.add(0,0,1), iBlockState, 4);
+                world.setBlockState(pos.add(1,0,1), iBlockState, 4);
+            }
+            else {
+                world.setBlockState(pos, iBlockState, 4);
+            }
+        }
+    }
+}
