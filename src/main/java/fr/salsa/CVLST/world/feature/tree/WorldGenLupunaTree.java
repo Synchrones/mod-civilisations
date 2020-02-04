@@ -7,7 +7,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
-import net.minecraftforge.fml.common.Mod;
 
 import java.util.Random;
 
@@ -46,7 +45,7 @@ public class WorldGenLupunaTree extends WorldGenAbstractTree {
                 }
             }
         }
-        if(!flag){
+        if(flag){
             return false;
         }
         else{
@@ -87,3 +86,4 @@ public class WorldGenLupunaTree extends WorldGenAbstractTree {
         return true;
     }
 }
+
