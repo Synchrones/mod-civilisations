@@ -5,6 +5,7 @@ import fr.salsa.CVLST.init.ModBlocks;
 import fr.salsa.CVLST.init.ModItems;
 import fr.salsa.CVLST.world.feature.tree.WorldGenLupunaTree;
 import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockSapling;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.IProperty;
@@ -111,7 +112,7 @@ public class CVLSTSaplings extends BlockBush implements IGrowable {
         }
     }
     public void generateTree(World world, Random rand, BlockPos pos, IBlockState state){
-        if(TerrainGen.saplingGrowTree(world, rand, pos)) return;
+        if(!TerrainGen.saplingGrowTree(world, rand, pos)) return;
         WorldGenerator gen = (WorldGenerator)(rand.nextInt(10) == 0 ? new WorldGenBigTree(false) : new WorldGenTrees(false));
         boolean flag = false;
         if(state.getBlock() == ModBlocks.LupunaSapling){
