@@ -23,9 +23,6 @@ public class WorldGenLupunaTree extends WorldGenAbstractTree {
     public boolean generate(World world, Random rand, BlockPos pos) {
         int height = this.minHeight + rand.nextInt(8);
         boolean flag = true;
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
         for (int yPos = y; yPos <= y + 1 + height; yPos++) {
             int b0 = 2;
             if (yPos == y) b0 = 1;
