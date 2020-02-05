@@ -53,7 +53,7 @@ public class WorldGenLupunaTree extends WorldGenAbstractTree {
                 this.genTrunk(world, pos.add(1,0,1), height);
                 this.genTrunk(world, pos.add(0,0,1), height);
                 this.genTrunk(world, pos.add(1,0,0), height);
-                this.genMiddleBranch(world, pos, height);
+                this.genMiddleBranch(world, pos);
             }
         }
         return true;
