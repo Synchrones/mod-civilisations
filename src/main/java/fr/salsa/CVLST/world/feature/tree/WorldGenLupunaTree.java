@@ -68,7 +68,7 @@ public class WorldGenLupunaTree extends WorldGenAbstractTree {
             }
         }
     }
-    private void genMiddleBranch(World world, BlockPos pos, int height){
+    private void genMiddleBranch(World world, BlockPos pos){
         Random rand = new Random();
         int branchnumber = 2 + rand.nextInt(2);
         int x = pos.getX();
