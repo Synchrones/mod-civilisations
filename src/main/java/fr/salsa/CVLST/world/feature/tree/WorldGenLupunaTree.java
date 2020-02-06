@@ -57,14 +57,19 @@ public class WorldGenLupunaTree extends WorldGenAbstractTree {
                 this.genTrunk(world, pos.add(0,0,1), height);
                 this.genTrunk(world, pos.add(1,0,0), height);
                 this.genMiddleBranch(world, pos);
-                this.genTreeBase(world, pos);
+
+                this.genBase(world, pos.add(-1,0,-1));
+                this.genBase(world, pos.add(2, 0, -1));
+                this.genBase(world, pos.add(2,0,2));
+                this.genBase(world, pos.add(-1,0,2));
+                this.genTopTree(world, pos, height);
             }
         }
         return true;
     }
 
     private void genTrunk(World world, BlockPos pos, int height) {
-        for (int logheight = 0; logheight < height - 8; logheight++) {
+        for (int logheight = 0; logheight < height - 2; logheight++) {
             BlockPos up = pos.up(logheight);
             IBlockState logState = world.getBlockState(up);
             if (logState.getBlock().isAir(logState, world, up) || logState.getBlock().isLeaves(logState, world, up)) {
@@ -241,72 +246,139 @@ public class WorldGenLupunaTree extends WorldGenAbstractTree {
             }
         }
     }
-    private void genTreeBase(World world, BlockPos pos){
+    private void genBase(World world, BlockPos pos){
         Random rand = new Random();
-        int rootnumber = 3 + rand.nextInt(2);
-        for(int i = 0; i < rootnumber; i++){
-            int rootheight = 3 + rand.nextInt(2);
-            switch(rand.nextInt(3)){
-                case 0:
-                    BlockPos rootpos = pos.add(2,0,2);
-                    for(int i1 = 0; i1 < rootheight; i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos.add(0, i1,0), log);
-                    }
-                    for(int i1 = 0; i1 < rootheight - 1 - rand.nextInt(1); i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
-                    }
-                    for(int i1 = 0; i1 < rootheight - 2 - rand.nextInt(1); i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
-                    }
-                    for(int i1 = 0; i1 < rootheight - 3 - rand.nextInt(1); i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos.add(-2 + rand.nextInt(3), i1, -2 + rand.nextInt(3)), log);
-                    }
-                    break;
-                case 1:
-                    BlockPos rootpos1 = pos.add(-1,0,2);
-                    for(int i1 = 0; i1 < rootheight; i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos1.add(0, i1,0), log);
-                    }
-                    for(int i1 = 0; i1 < rootheight - 1 - rand.nextInt(1); i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos1.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
-                    }
-                    for(int i1 = 0; i1 < rootheight - 2 - rand.nextInt(1); i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos1.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
-                    }
-                    for(int i1 = 0; i1 < rootheight - 3 - rand.nextInt(1); i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos1.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
-                    }
-                    break;
-                case 2:
-                    BlockPos rootpos2 = pos.add(2,0,0);
-                    for(int i1 = 0; i1 < rootheight; i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos2.add(0, i1,0), log);
-                    }
-                    for(int i1 = 0; i1 < rootheight - 1 - rand.nextInt(1); i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos2.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
-                    }
-                    for(int i1 = 0; i1 < rootheight - 2 - rand.nextInt(1); i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos2.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
-                    }
-                    for(int i1 = 0; i1 < rootheight - 3 - rand.nextInt(1); i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos2.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
-                    }
-                    break;
-                case 3:
-                    BlockPos rootpos3 = pos.add(0,0,-1);
-                    for(int i1 = 0; i1 < rootheight; i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos3.add(0, i1,0), log);
-                    }
-                    for(int i1 = 0; i1 < rootheight - 1 - rand.nextInt(1); i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos3.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
-                    }
-                    for(int i1 = 0; i1 < rootheight - 2 - rand.nextInt(1); i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos3.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
-                    }
-                    for(int i1 = 0; i1 < rootheight - 3 - rand.nextInt(1); i1++){
-                        this.setBlockAndNotifyAdequately(world, rootpos3.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
-                    }
+        int rootheight = 3 + rand.nextInt(2);
+        for(int i1 = 0; i1 < rootheight; i1++){
+            this.setBlockAndNotifyAdequately(world, pos.add(0, i1,0), log);
+        }
+        for(int i1 = 0; i1 < rootheight - 1 - rand.nextInt(1); i1++){
+            this.setBlockAndNotifyAdequately(world, pos.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
+        }
+        for(int i1 = 0; i1 < rootheight - 2 - rand.nextInt(1); i1++){
+            this.setBlockAndNotifyAdequately(world, pos.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
+        }
+        for(int i1 = 0; i1 < rootheight - 3 - rand.nextInt(1); i1++){
+            this.setBlockAndNotifyAdequately(world, pos.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
+        }
+    }
+    private void genTopTree(World world, BlockPos pos, int logheight){
+        BlockPos toplog = pos.add(7,logheight - 8,0);
+        int ypos = toplog.getY() - 4;
+        for(int i2 = 0; i2 < 4; i2++) {
+
+            for (int i = 0; i < 14; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i, i2, 0), leaf);
             }
+            for (int i = 0; i < 16; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i + 1, i2, -1), leaf);
+            }
+            for (int i = 0; i < 3; i++) {
+                for (int i1 = 0; i1 < 18; i1++) {
+                    setBlockAndNotifyAdequately(world, toplog.add(-i1 + 2, i2, -2 - i), leaf);
+                }
+            }
+            for (int i = 0; i < 16; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i + 1, i2, -5), leaf);
+            }
+            for (int i = 0; i < 14; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i, i2, -6), leaf);
+            }
+            for (int i = 0; i < 5; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 1, i2, -7), leaf);
+            }
+            for (int i = 0; i < 5; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 8, i2, -7), leaf);
+            }
+            for (int i = 0; i < 3; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 2, i2, -8), leaf);
+            }
+            for (int i = 0; i < 3; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 9, i2, -8), leaf);
+            }
+        }
+
+
+        for(int i2 = 0; i2 < 2; i2++) {
+
+            for (int i = 0; i < 12; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 1, 4 + i2, 0), leaf);
+            }
+            for (int i = 0; i < 14; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i, 4 + i2, -1), leaf);
+            }
+            for (int i = 0; i < 3; i++) {
+                for (int i1 = 0; i1 < 16; i1++) {
+                    setBlockAndNotifyAdequately(world, toplog.add(-i1 + 1, 4 + i2, -2 - i), leaf);
+                }
+            }
+            for (int i = 0; i < 14; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i, 4 + i2, -5), leaf);
+            }
+            for (int i = 0; i < 5; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 1, 4 + i2, -6), leaf);
+            }
+            for (int i = 0; i < 5; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 8, 4 + i2, -6), leaf);
+            }
+            for (int i = 0; i < 3; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 2, 4 + i2, -7), leaf);
+            }
+            for (int i = 0; i < 3; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 9, 4 + i2, -7), leaf);
+            }
+        }
+
+
+
+
+        for(int i = 0; i < 5; i++){
+            setBlockAndNotifyAdequately(world, pos.add(i + 1 ,ypos,i + 1), log);
+        }
+        for(int i = 0; i < 5; i++){
+            setBlockAndNotifyAdequately(world, pos.add( 5, ypos + i , 5), log);
+        }
+
+
+        for(int i = 0; i < 5; i++){
+            setBlockAndNotifyAdequately(world, pos.add( -i ,ypos,i + 1), log);
+        }
+        for(int i = 0; i < 5; i++){
+            setBlockAndNotifyAdequately(world, pos.add( -4, ypos + i , 5), log);
+        }
+
+
+        for(int i = 0; i < 5; i++){
+            setBlockAndNotifyAdequately(world, pos.add(-i  ,ypos, -i), log);
+        }
+        for(int i = 0; i < 5; i++){
+            setBlockAndNotifyAdequately(world, pos.add( -4, ypos + i , -4), log);
+        }
+
+
+        for(int i = 0; i < 5; i++){
+            setBlockAndNotifyAdequately(world, pos.add(i + 1,ypos, -i ), log);
+        }
+        for(int i = 0; i < 5; i++){
+            setBlockAndNotifyAdequately(world, pos.add( 5, ypos + i , -4), log);
+        }
+        for(int i = 0; i < 3; i++) {
+            setBlockAndNotifyAdequately(world, toplog.add(-8, i, -7), log);
+            setBlockAndNotifyAdequately(world, toplog.add(-5, i, -7), log);
+            setBlockAndNotifyAdequately(world, toplog.add(-8, i, 8), log);
+            setBlockAndNotifyAdequately(world, toplog.add(-5, i, 8), log);
+        }
+        for(int i = 0; i < 2; i++){
+            setBlockAndNotifyAdequately(world, pos.add( -6, ypos + i + 1 , -2), log);
+        }
+        for(int i = 0; i < 2; i++){
+            setBlockAndNotifyAdequately(world, pos.add( 7, ypos + i + 1 , -2), log);
+        }
+        for(int i = 0; i < 2; i++){
+            setBlockAndNotifyAdequately(world, pos.add( -6, ypos + i + 1 , 3), log);
+        }
+        for(int i = 0; i < 2; i++){
+            setBlockAndNotifyAdequately(world, pos.add( 7, ypos + i + 1 , 3), log);
         }
     }
 }
