@@ -10,8 +10,8 @@ import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import java.util.Random;
 
 public class WorldGenLupunaTree extends WorldGenAbstractTree {
-    public static final IBlockState log = ModBlocks.LupunaLog.getDefaultState();
-    public static final IBlockState leaf = ModBlocks.LupunaLeave.getDefaultState();
+    public static final IBlockState log = ModBlocks.lupunaLog.getDefaultState();
+    public static final IBlockState leaf = ModBlocks.lupunaLeave.getDefaultState();
     private int minHeight;
 
     public WorldGenLupunaTree() {
@@ -49,7 +49,7 @@ public class WorldGenLupunaTree extends WorldGenAbstractTree {
         } else {
             BlockPos down = pos.down();
             IBlockState state = world.getBlockState(down);
-            boolean isSoil = state.getBlock().canSustainPlant(state, world, down, EnumFacing.UP, (CVLSTSaplings) ModBlocks.LupunaSapling);
+            boolean isSoil = state.getBlock().canSustainPlant(state, world, down, EnumFacing.UP, (CVLSTSaplings) ModBlocks.lupunaSapling);
             if (isSoil && y < world.getHeight() - height - 1) {
                 state.getBlock().onPlantGrow(state, world, down, pos);
                 this.genTrunk(world, pos, height);
@@ -299,37 +299,56 @@ public class WorldGenLupunaTree extends WorldGenAbstractTree {
         }
 
 
-        for(int i2 = 0; i2 < 2; i2++) {
+        for(int i3 = 0; i3 < 2; i3++) {
 
             for (int i = 0; i < 12; i++) {
-                setBlockAndNotifyAdequately(world, toplog.add(-i - 1, 4 + i2, 0), leaf);
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 1, 4 + i3, 0), leaf);
             }
             for (int i = 0; i < 14; i++) {
-                setBlockAndNotifyAdequately(world, toplog.add(-i, 4 + i2, -1), leaf);
+                setBlockAndNotifyAdequately(world, toplog.add(-i, 4 + i3, -1), leaf);
             }
             for (int i = 0; i < 3; i++) {
                 for (int i1 = 0; i1 < 16; i1++) {
-                    setBlockAndNotifyAdequately(world, toplog.add(-i1 + 1, 4 + i2, -2 - i), leaf);
+                    setBlockAndNotifyAdequately(world, toplog.add(-i1 + 1, 4 + i3, -2 - i), leaf);
                 }
             }
             for (int i = 0; i < 14; i++) {
-                setBlockAndNotifyAdequately(world, toplog.add(-i, 4 + i2, -5), leaf);
+                setBlockAndNotifyAdequately(world, toplog.add(-i, 4 + i3, -5), leaf);
             }
             for (int i = 0; i < 5; i++) {
-                setBlockAndNotifyAdequately(world, toplog.add(-i - 1, 4 + i2, -6), leaf);
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 1, 4 + i3, -6), leaf);
             }
             for (int i = 0; i < 5; i++) {
-                setBlockAndNotifyAdequately(world, toplog.add(-i - 8, 4 + i2, -6), leaf);
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 8, 4 + i3, -6), leaf);
             }
             for (int i = 0; i < 3; i++) {
-                setBlockAndNotifyAdequately(world, toplog.add(-i - 2, 4 + i2, -7), leaf);
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 2, 4 + i3, -7), leaf);
             }
             for (int i = 0; i < 3; i++) {
-                setBlockAndNotifyAdequately(world, toplog.add(-i - 9, 4 + i2, -7), leaf);
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 9, 4 + i3, -7), leaf);
             }
+
         }
 
-
+        for (int i3 = 0; i3 < 3; i3++) {
+            for (int i2 = 0; i2 < 5 - i3 ; i2++) {
+                for (int i1 = 0; i1 < 10 - i3 -i3; i1++) {
+                    setBlockAndNotifyAdequately(world, toplog.add(-11 + i1 + i3, 6 + i3, -4 + i2 + i3), leaf);
+                }
+            }
+            for (int i1 = 0; i1 < 4 - i3; i1++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-1 - i3, 6 + i3, -5 + i1 + i3), leaf);
+            }
+            for (int i1 = 0; i1 < 4 - i3; i1++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-12 + i3, 6 + i3, -5 + i1 + i3), leaf);
+            }
+            for (int i1 = 0; i1 < 3 - i3; i1++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-4 + i1 , 6 + i3, -5 + i3), leaf);
+            }
+            for (int i1 = 0; i1 < 3 - i3; i1++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-9 - i1, 6 + i3, -5 +i3), leaf);
+            }
+        }
 
 
         for(int i = 0; i < 5; i++){
@@ -362,22 +381,32 @@ public class WorldGenLupunaTree extends WorldGenAbstractTree {
         for(int i = 0; i < 5; i++){
             setBlockAndNotifyAdequately(world, pos.add( 5, ypos + i , -4), log);
         }
-        for(int i = 0; i < 3; i++) {
-            setBlockAndNotifyAdequately(world, toplog.add(-8, i, -7), log);
-            setBlockAndNotifyAdequately(world, toplog.add(-5, i, -7), log);
-            setBlockAndNotifyAdequately(world, toplog.add(-8, i, 8), log);
-            setBlockAndNotifyAdequately(world, toplog.add(-5, i, 8), log);
+        for(int i = 0; i < 4; i++) {
+            setBlockAndNotifyAdequately(world, toplog.add(-8, i, -6), log);
+            setBlockAndNotifyAdequately(world, toplog.add(-5, i, -6), log);
+            setBlockAndNotifyAdequately(world, toplog.add(-8, i, 7), log);
+            setBlockAndNotifyAdequately(world, toplog.add(-5, i, 7), log);
         }
-        for(int i = 0; i < 2; i++){
+        setBlockAndNotifyAdequately(world, pos.add(-2, 6 + ypos, -3), log);
+        setBlockAndNotifyAdequately(world, pos.add(3, 6 + ypos, -3), log);
+        setBlockAndNotifyAdequately(world, pos.add(-2, 6 + ypos, 4), log);
+        setBlockAndNotifyAdequately(world, pos.add(3, 6 + ypos, 4), log);
+        for(int i = 0; i < 2; i++) {
+            setBlockAndNotifyAdequately(world, pos.add(-4 , 5 + ypos, i), log);
+        }
+        for(int i = 0; i < 2; i++) {
+            setBlockAndNotifyAdequately(world, pos.add(5 , 5 + ypos, i), log);
+        }
+        for(int i = 0; i < 2; i++) {
+            setBlockAndNotifyAdequately(world, pos.add(i , 7 + ypos, -1), log);
+        }
+        for(int i = 0; i < 2; i++) {
+            setBlockAndNotifyAdequately(world, pos.add( i , 7 + ypos, 2), log);
+        }
+        for(int i = 0; i < 4; i++){
             setBlockAndNotifyAdequately(world, pos.add( -6, ypos + i + 1 , -2), log);
-        }
-        for(int i = 0; i < 2; i++){
             setBlockAndNotifyAdequately(world, pos.add( 7, ypos + i + 1 , -2), log);
-        }
-        for(int i = 0; i < 2; i++){
             setBlockAndNotifyAdequately(world, pos.add( -6, ypos + i + 1 , 3), log);
-        }
-        for(int i = 0; i < 2; i++){
             setBlockAndNotifyAdequately(world, pos.add( 7, ypos + i + 1 , 3), log);
         }
     }
