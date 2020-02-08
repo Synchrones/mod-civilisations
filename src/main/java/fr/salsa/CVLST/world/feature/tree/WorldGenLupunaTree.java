@@ -83,178 +83,75 @@ public class WorldGenLupunaTree extends WorldGenAbstractTree {
         int branchnumber = 2 + rand.nextInt(2);
         for(int i = 0; i < branchnumber; i++){
             BlockPos branchpos = pos.add(0,8 + rand.nextInt(12), -1);
-            switch(rand.nextInt(3)){
+            switch(rand.nextInt(4)){
                 case 0: //nord
+                    this.genMiddleBranchLeaves(world, branchpos.add(0,0,-3));
+
                     for(int i1 = 0; i1 < 4 ; i1++) {
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(0, 0, -i1), log);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){                                                                  //couche 1
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(0,-1, -2 -i2), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(-1,-1,-3), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(1,-1,-3), leaf);
-                    for (int i2 = 0; i2 < 5; i2++) {                                                                //couche 2
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-1, 0, -1 - i2), leaf);
-                    }
-                    for(int i2 = 0; i2 < 5; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(1,0,-1 - i2), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-2,0,-2 - i2), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(2,0,-2 - i2), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(0,0,-4), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(0,0,-5), leaf);
-                    for(int i2 = 0; i2 < 5; i2++){                                                                  //couche 3
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(0,1, -1 -i2), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(1,1, -2 -i2), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-1,1, -2 -i2), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(-2,1,-3), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(2,1,-3), leaf);
-                    for(int i2 = 0; i2 < 3; i2++){                                                                 //couche 4
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(0,2, -2 -i2), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(-1,2,-3), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(1,2,-3), leaf);
+                    this.setBlockAndNotifyAdequately(world, branchpos.add(0, 0, -i1), log);
+                }
                     break;
                 case 1://sud
+                    this.genMiddleBranchLeaves(world, branchpos.add(0,0,6));
+
                     for(int i1 = 0; i1 < 4 ; i1++){
                         this.setBlockAndNotifyAdequately(world, branchpos.add(0,0,3 + i1), log);
                     }
-                    for(int i2 = 0; i2 < 3; i2++){                                                                  //couche 1
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(0,-1, 5 + i2), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(-1,-1,6), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(1,-1,6), leaf);
-                    for (int i2 = 0; i2 < 5; i2++) {                                                                //couche 2
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-1, 0, 4 + i2), leaf);
-                    }
-                    for(int i2 = 0; i2 < 5; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(1,0,4 + i2), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-2,0,5 + i2), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(2,0,5 + i2), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(0,0,7), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(0,0,8), leaf);
-                    for(int i2 = 0; i2 < 5; i2++){                                                                  //couche 3
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(0,1, 4 + i2), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(1,1, 5 + i2), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-1,1, 5 + i2), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(-2,1,6), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(2,1,6), leaf);
-                    for(int i2 = 0; i2 < 3; i2++){                                                                 //couche 4
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(0,2, 5 +i2), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(-1,2,6), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(1,2,6), leaf);
                     break;
                 case 2://est
+                    this.genMiddleBranchLeaves(world, branchpos.add(5,0,1));
+
                     for(int i1 = 0; i1 < 4 ; i1++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(3 + i1,0,1), log);
+                        this.setBlockAndNotifyAdequately(world, branchpos.add(2 + i1,0,1), log);
                     }
-                    for(int i2 = 0; i2 < 3; i2++){                                                                 //couche 1
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(3 + i2,-1, 1), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(4,-1,0), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(4,-1,2), leaf);
-                    for (int i2 = 0; i2 < 5; i2++) {                                                                //couche 2
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(2 + i2, 0, 0), leaf);
-                    }
-                    for(int i2 = 0; i2 < 5; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(2 + i2,0,2), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(3 + i2,0,-1 ), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(3 + i2,0,3 ), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(5,0,1), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(6,0,1), leaf);
-                    for(int i2 = 0; i2 < 5; i2++){                                                                  //couche 3
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(2 + i2,1, 1), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(3 + i2,1,2), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(3 + i2,1, 0), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(4,1,-1), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(4,1,3), leaf);
-                    for(int i2 = 0; i2 < 3; i2++){                                                                 //couche 4
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(2 + i2,2, 2), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(3,2,1), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(3,2,3), leaf);
                     break;
                 case 3://ouest
+                    this.genMiddleBranchLeaves(world, branchpos.add(-4,0,1));
                     for(int i1 = 0; i1 < 4 ; i1++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(i1,0,1), log);
+                        this.setBlockAndNotifyAdequately(world, branchpos.add(-1 - i1,0,1), log);
                     }
-                    for(int i2 = 0; i2 < 3; i2++){                                                                 //couche 1
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-2 -i2,-1, 1), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(-3,-1,0), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(-3,-1,2), leaf);
-                    for (int i2 = 0; i2 < 5; i2++) {                                                                //couche 2
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-1 - i2, 0, 0), leaf);
-                    }
-                    for(int i2 = 0; i2 < 5; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-1 - i2,0,2), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-2 - i2,0,-1 ), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-2- i2,0,3 ), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(-4,0,1), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(-5,0,1), leaf);
-                    for(int i2 = 0; i2 < 5; i2++){                                                                  //couche 3
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-1 -i2,1, 1), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-2 -i2,1,2), leaf);
-                    }
-                    for(int i2 = 0; i2 < 3; i2++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-2 -i2,1, 0), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(-3,1,-1), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(-3,1,3), leaf);
-                    for(int i2 = 0; i2 < 3; i2++){                                                                 //couche 4
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-2 -i2,2, 1), leaf);
-                    }
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(-3,2,0), leaf);
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(-3,2,2), leaf);
             }
         }
     }
-    private void GenMiddleBranchLeaves(){
-        
+    private void genMiddleBranchLeaves(World world, BlockPos branchpos){
+        for(int i2 = 0; i2 < 3; i2++){                                                                  //couche 1
+            this.setBlockAndNotifyAdequately(world, branchpos.add(0,-1, 1 -i2), leaf);
+        }
+        this.setBlockAndNotifyAdequately(world, branchpos.add(-1,-1,0), leaf);
+        this.setBlockAndNotifyAdequately(world, branchpos.add(1,-1,0), leaf);
+        for(int i3 = 0; i3 < 3; i3++) {
+            for (int i2 = 0; i2 < 5; i2++) {                                                                //couche 2
+                this.setBlockAndNotifyAdequately(world, branchpos.add(-1 + i3, 0, 2 - i2), leaf);
+            }
+        }
+        for(int i2 = 0; i2 < 3; i2++){
+            this.setBlockAndNotifyAdequately(world, branchpos.add(-2,0,1 - i2), leaf);
+        }
+        for(int i2 = 0; i2 < 3; i2++){
+            this.setBlockAndNotifyAdequately(world, branchpos.add(2,0,1 - i2), leaf);
+        }
+        for(int i2 = 0; i2 < 5; i2++){                                                                  //couche 3
+            this.setBlockAndNotifyAdequately(world, branchpos.add(0,1, 2 -i2), leaf);
+        }
+        for(int i2 = 0; i2 < 3; i2++){
+            this.setBlockAndNotifyAdequately(world, branchpos.add(1,1, 1 -i2), leaf);
+        }
+        for(int i2 = 0; i2 < 3; i2++){
+            this.setBlockAndNotifyAdequately(world, branchpos.add(-1,1, 1 -i2), leaf);
+        }
+        this.setBlockAndNotifyAdequately(world, branchpos.add(-2,1,0), leaf);
+        this.setBlockAndNotifyAdequately(world, branchpos.add(2,1,0), leaf);
+        for(int i2 = 0; i2 < 3; i2++){                                                                 //couche 4
+            this.setBlockAndNotifyAdequately(world, branchpos.add(0,2, 1 -i2), leaf);
+        }
+        this.setBlockAndNotifyAdequately(world, branchpos.add(-1,2,0), leaf);
+        this.setBlockAndNotifyAdequately(world, branchpos.add(1,2,0), leaf);
     }
-    
-    
-    
-    
-    
-    
+
+
+
+
+
     private void genBase(World world, BlockPos pos){
         Random rand = new Random();
         int rootheight = 3 + rand.nextInt(2);
