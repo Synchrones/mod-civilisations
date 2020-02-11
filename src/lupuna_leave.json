@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "check_decay=true,decayable=true": { "model": "cvlst:lupuna_leave" },
+    "check_decay=true,decayable=false": { "model": "cvlst:lupuna_leave" },
+    "check_decay=false,decayable=true": { "model": "cvlst:lupuna_leave" },
+    "check_decay=false,decayable=false": { "model": "cvlst:lupuna_leave" }
+  }
+}
