@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "cvlst:blocks/lupuna_log",
+    "side": "cvlst:blocks/lupuna_log"
+  }
+}
