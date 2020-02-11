@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "normal": {
+      "model": "cvlst:ruby_block"
+    }
+  }
+}
