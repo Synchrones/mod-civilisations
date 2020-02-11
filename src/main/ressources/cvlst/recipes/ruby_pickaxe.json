@@ -1,0 +1,23 @@
+{
+  "result": {
+    "item": "cvlst:ruby_pickaxe",
+    "data": 0,
+    "count": 1
+  },
+  "pattern": [
+    "XXX",
+    " Y ",
+    " Y "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "cvlst:ruby",
+      "data": 0
+    },
+    "Y": {
+      "item": "minecraft:stick",
+      "data": 0
+    }
+  }
+}

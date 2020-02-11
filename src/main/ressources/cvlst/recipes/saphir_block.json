@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "cvlst:saphir_block",
+    "data": 0,
+    "count": 1
+  },
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "cvlst:saphir",
+      "data": 0
+    }
+  }
+}

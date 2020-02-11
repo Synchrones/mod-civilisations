@@ -1,0 +1,19 @@
+{
+  "result": {
+    "item": "cvlst:ruby_block",
+    "data": 0,
+    "count": 1
+  },
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "cvlst:ruby",
+      "data": 0
+    }
+  }
+}
