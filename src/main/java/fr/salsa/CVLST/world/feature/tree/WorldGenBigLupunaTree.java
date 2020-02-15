@@ -9,12 +9,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import java.util.Random;
 
-public class WorldGenLupunaTree extends WorldGenAbstractTree {
+public class WorldGenBigLupunaTree extends WorldGenAbstractTree {
     public static final IBlockState log = ModBlocks.lupunaLog.getDefaultState();
     public static final IBlockState leaf = ModBlocks.lupunaLeave.getDefaultState();
     private int minHeight;
 
-    public WorldGenLupunaTree() {
+    public WorldGenBigLupunaTree() {
         super(false);
         this.minHeight = 30;
     }
