@@ -1,7 +1,10 @@
 package fr.salsa.CVLST.world.feature.tree;
 
+import fr.salsa.CVLST.blocks.trees.CVLSTLeaves;
+import fr.salsa.CVLST.blocks.trees.CVLSTLog;
 import fr.salsa.CVLST.blocks.trees.CVLSTSaplings;
 import fr.salsa.CVLST.init.ModBlocks;
+import net.minecraft.block.BlockLog;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -11,7 +14,7 @@ import java.util.Random;
 
 public class WorldGenBigLupunaTree extends WorldGenAbstractTree {
     public static final IBlockState log = ModBlocks.lupunaLog.getDefaultState();
-    public static final IBlockState leaf = ModBlocks.lupunaLeave.getDefaultState();
+    public static final IBlockState leaf = ModBlocks.lupunaLeave.getDefaultState().withProperty(CVLSTLeaves.CHECK_DECAY, Boolean.valueOf(false));
     private int minHeight;
 
     public WorldGenBigLupunaTree() {
@@ -52,17 +55,39 @@ public class WorldGenBigLupunaTree extends WorldGenAbstractTree {
             boolean isSoil = state.getBlock().canSustainPlant(state, world, down, EnumFacing.UP, (CVLSTSaplings) ModBlocks.lupunaSapling);
             if (isSoil && y < world.getHeight() - height - 1) {
                 state.getBlock().onPlantGrow(state, world, down, pos);
-                this.genTrunk(world, pos, height);
-                this.genTrunk(world, pos.add(1,0,1), height);
-                this.genTrunk(world, pos.add(0,0,1), height);
-                this.genTrunk(world, pos.add(1,0,0), height);
-                this.genMiddleBranch(world, pos);
 
-                this.genBase(world, pos.add(-1,0,-1));
-                this.genBase(world, pos.add(2, 0, -1));
-                this.genBase(world, pos.add(2,0,2));
-                this.genBase(world, pos.add(-1,0,2));
-                this.genTopTree(world, pos, height);
+                BlockPos.MutableBlockPos saplingsNW = new BlockPos.MutableBlockPos().setPos(pos.getX(), pos.getY(), pos.getZ());
+                IBlockState state2 = world.getBlockState(saplingsNW.west());
+                if(state2.getBlock() == ModBlocks.lupunaSapling){
+                    saplingsNW.setPos(pos.getX() - 1, pos.getY(), pos.getZ());
+                    state2 = world.getBlockState(saplingsNW.north());
+                    if(state2.getBlock() == ModBlocks.lupunaSapling){
+                        saplingsNW.setPos(pos.getX() - 1, pos.getY(), pos.getZ() - 1);
+                    }
+                }
+                else {
+                    state2 = world.getBlockState(saplingsNW.north());
+                    if (state2.getBlock() == ModBlocks.lupunaSapling) {
+                        saplingsNW.setPos(pos.getX(), pos.getY(), pos.getZ() - 1);
+                    }
+                }
+
+                this.genMiddleBranch(world, saplingsNW);
+
+                this.genBase(world, saplingsNW.add(-1,0,-1));
+                this.genBase(world, saplingsNW.add(2, 0, -1));
+                this.genBase(world, saplingsNW.add(2,0,2));
+                this.genBase(world, saplingsNW.add(-1,0,2));
+
+                this.genTopTree(world, saplingsNW, height);
+
+                this.genFallingLeaves(world, saplingsNW.add(-2 ,0,3 + rand.nextInt(1)), height);
+                this.genFallingLeaves(world, saplingsNW.add(4 + rand.nextInt(1),0,3 + rand.nextInt(1)), height);
+                this.genFallingLeaves(world, saplingsNW.add(3 + rand.nextInt(1),0,-3), height);
+                this.genFallingLeaves(world, saplingsNW.add(-2,0,-2 + rand.nextInt(1)), height);
+
+                this.genTrunk(world, saplingsNW, height);
+
             }
         }
         return true;
@@ -72,8 +97,19 @@ public class WorldGenBigLupunaTree extends WorldGenAbstractTree {
         for (int logheight = 0; logheight < height - 2; logheight++) {
             BlockPos up = pos.up(logheight);
             IBlockState logState = world.getBlockState(up);
-            if (logState.getBlock().isAir(logState, world, up) || logState.getBlock().isLeaves(logState, world, up)) {
+            if (logState.getBlock().isAir(logState, world, up) || logState.getBlock().isLeaves(logState, world, up) || logState.getBlock() == ModBlocks.lupunaSapling){
                 this.setBlockAndNotifyAdequately(world, pos.up(logheight), log);
+            }
+            if (logheight < height - 2){
+                if (logState.getBlock().isAir(logState, world, up.add(1,0,0)) || logState.getBlock().isLeaves(logState, world, up) || logState.getBlock() == ModBlocks.lupunaSapling) {
+                    this.setBlockAndNotifyAdequately(world, pos.up(logheight).add(1,0,0), log);
+                }
+                if (logState.getBlock().isAir(logState, world, up.add(1,0,1)) || logState.getBlock().isLeaves(logState, world, up) || logState.getBlock() == ModBlocks.lupunaSapling) {
+                    this.setBlockAndNotifyAdequately(world, pos.up(logheight).add(1,0,1), log);
+                }
+                if (logState.getBlock().isAir(logState, world, up.add(0,0,1)) || logState.getBlock().isLeaves(logState, world, up) || logState.getBlock() == ModBlocks.lupunaSapling) {
+                    this.setBlockAndNotifyAdequately(world, pos.up(logheight).add(0,0,1), log);
+                }
             }
         }
     }
@@ -88,27 +124,27 @@ public class WorldGenBigLupunaTree extends WorldGenAbstractTree {
                     this.genMiddleBranchLeaves(world, branchpos.add(0,0,-3));
 
                     for(int i1 = 0; i1 < 4 ; i1++) {
-                    this.setBlockAndNotifyAdequately(world, branchpos.add(0, 0, -i1), log);
+                    this.setBlockAndNotifyAdequately(world, branchpos.add(0, 0, -i1), log.withProperty(CVLSTLog.LOG_AXIS, BlockLog.EnumAxis.Z));
                 }
                     break;
                 case 1://sud
                     this.genMiddleBranchLeaves(world, branchpos.add(0,0,6));
 
                     for(int i1 = 0; i1 < 4 ; i1++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(0,0,3 + i1), log);
+                        this.setBlockAndNotifyAdequately(world, branchpos.add(0,0,3 + i1), log.withProperty(CVLSTLog.LOG_AXIS, BlockLog.EnumAxis.Z));
                     }
                     break;
                 case 2://est
                     this.genMiddleBranchLeaves(world, branchpos.add(5,0,1));
 
                     for(int i1 = 0; i1 < 4 ; i1++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(2 + i1,0,1), log);
+                        this.setBlockAndNotifyAdequately(world, branchpos.add(2 + i1,0,1), log.withProperty(CVLSTLog.LOG_AXIS, BlockLog.EnumAxis.X));
                     }
                     break;
                 case 3://ouest
                     this.genMiddleBranchLeaves(world, branchpos.add(-4,0,1));
                     for(int i1 = 0; i1 < 4 ; i1++){
-                        this.setBlockAndNotifyAdequately(world, branchpos.add(-1 - i1,0,1), log);
+                        this.setBlockAndNotifyAdequately(world, branchpos.add(-1 - i1,0,1), log.withProperty(CVLSTLog.LOG_AXIS, BlockLog.EnumAxis.X));
                     }
             }
         }
@@ -154,23 +190,30 @@ public class WorldGenBigLupunaTree extends WorldGenAbstractTree {
 
     private void genBase(World world, BlockPos pos){
         Random rand = new Random();
-        int rootheight = 3 + rand.nextInt(2);
-        for(int i1 = 0; i1 < rootheight; i1++){
-            this.setBlockAndNotifyAdequately(world, pos.add(0, i1,0), log);
+        int i = 0;
+        int rootheight = 4 + rand.nextInt(2);
+        BlockPos topRoot = pos.add(0, rootheight, 0);
+        IBlockState state = world.getBlockState(topRoot);
+        while(state.getBlock().isLeaves(state, world, topRoot) || state.getBlock().isAir(state, world, topRoot)){
+            i++;
+            state = world.getBlockState(topRoot.add(0, -i,0));
+            setBlockAndNotifyAdequately(world, topRoot.add(0, -i,0), log);
         }
-        for(int i1 = 0; i1 < rootheight - 1 - rand.nextInt(1); i1++){
-            this.setBlockAndNotifyAdequately(world, pos.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
-        }
-        for(int i1 = 0; i1 < rootheight - 2 - rand.nextInt(1); i1++){
-            this.setBlockAndNotifyAdequately(world, pos.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
-        }
-        for(int i1 = 0; i1 < rootheight - 3 - rand.nextInt(1); i1++){
-            this.setBlockAndNotifyAdequately(world, pos.add(-1 + rand.nextInt(2), i1, -1 + rand.nextInt(2)), log);
+        for (int i1 = 0; i1 < 3; i1++){
+            i = 0;
+            BlockPos topRoot2 = pos.add(-1 + rand.nextInt(2) + i1 / 2, rootheight , -1 + rand.nextInt(2) + i1 / 2);
+            state = world.getBlockState(topRoot2);
+            while(state.getBlock().isLeaves(state, world, topRoot2) || state.getBlock().isAir(state, world, topRoot2)){
+                i++;
+                state = world.getBlockState(topRoot2.add(i1 / 3, -i - i1 - 1, i1 / 3));
+                setBlockAndNotifyAdequately(world, topRoot2.add(i1 / 3, -i - i1 - 1, i1 / 3), log);
+            }
         }
     }
+
     private void genTopTree(World world, BlockPos pos, int logheight){
         BlockPos toplog = pos.add(7,logheight - 8,0);
-        int ypos = toplog.getY() - 4;
+        int ypos = logheight - 8;
         for(int mirror = 0; mirror < 2; mirror++) {
             int plusorminus = 0;
             int i5 = 0;
@@ -265,7 +308,28 @@ public class WorldGenBigLupunaTree extends WorldGenAbstractTree {
                     setBlockAndNotifyAdequately(world, toplog.add(-9 - i1, 6 + i3, (-5 + i3) * plusorminus -i5), leaf);
                 }
             }
+
+            for(int i1 = 0; i1 < 12 ; i1++){
+                setBlockAndNotifyAdequately(world, toplog.add(-1 - i1, -1 ,  -i5), leaf);
+            }
+            for (int i1 = 0; i1 < 14; i1++) {
+                setBlockAndNotifyAdequately(world, toplog.add( - i1, -1, -1* plusorminus -i5), leaf);
+            }
+            for (int i = 0; i < 4; i++) {
+                for (int i1 = 0; i1 < 14 - i * 2; i1++) {
+                    setBlockAndNotifyAdequately(world, toplog.add( -i1 - i, -1, (-2 - i)* plusorminus -i5), leaf);
+                }
+            }
+            for (int i = 0; i < 2; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 4, -1, -6* plusorminus -i5), leaf);
+            }
+            for (int i = 0; i < 2; i++) {
+                setBlockAndNotifyAdequately(world, toplog.add(-i - 8, -1, -6 * plusorminus -i5), leaf);
+            }
         }
+
+
+
 
         for(int i = 0; i < 5; i++){
             setBlockAndNotifyAdequately(world, pos.add(i + 1 ,ypos,i + 1), log);
@@ -324,6 +388,17 @@ public class WorldGenBigLupunaTree extends WorldGenAbstractTree {
             setBlockAndNotifyAdequately(world, pos.add( 7, ypos + i + 1 , -2), log);
             setBlockAndNotifyAdequately(world, pos.add( -6, ypos + i + 1 , 3), log);
             setBlockAndNotifyAdequately(world, pos.add( 7, ypos + i + 1 , 3), log);
+        }
+    }
+
+    private void genFallingLeaves(World world, BlockPos pos, int logheight){
+        Random rand = new Random();
+        BlockPos downleaves = pos.add(0,logheight - 9,0);
+        int height = 5 + rand.nextInt(3);
+        for(int i1 = 0; i1 < 4; i1++){
+            for(int i = 0; i < height - (i1 + rand.nextInt(1)); i++){
+                setBlockAndNotifyAdequately(world, downleaves.add( -1 + rand.nextInt(2), -i, -1 + rand.nextInt(2)), leaf);
+            }
         }
     }
 }
