@@ -3,9 +3,9 @@ package fr.salsa.CVLST.blocks.trees;
 import fr.salsa.CVLST.ModMain;
 import fr.salsa.CVLST.init.ModBlocks;
 import fr.salsa.CVLST.init.ModItems;
+import fr.salsa.CVLST.world.feature.tree.WorldGenBigLupunaTree;
 import fr.salsa.CVLST.world.feature.tree.WorldGenLupunaTree;
 import net.minecraft.block.BlockBush;
-import net.minecraft.block.BlockSapling;
 import net.minecraft.block.IGrowable;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.IProperty;
@@ -114,13 +114,25 @@ public class CVLSTSaplings extends BlockBush implements IGrowable {
     public void generateTree(World world, Random rand, BlockPos pos, IBlockState state){
         if(!TerrainGen.saplingGrowTree(world, rand, pos)) return;
         WorldGenerator gen = (WorldGenerator)(rand.nextInt(10) == 0 ? new WorldGenBigTree(false) : new WorldGenTrees(false));
+        int i = 0;
+        int i2 = 0;
         boolean flag = false;
-        if(state.getBlock() == ModBlocks.LupunaSapling){
-            gen = new WorldGenLupunaTree();
+        if(state.getBlock() == ModBlocks.lupunaSapling){
+            for (i = 0; i >= -1; i--) {
+                for (i2 = 0; i2 >= -1; i2--) {
+                    if (this.isTwoByTwoOfType(world, pos, i, i2)) {
+                        gen = new WorldGenBigLupunaTree();
+                        flag = true;
+                    }
+                }
+            }
+            if(!flag){
+                gen = new WorldGenLupunaTree();
+            }
         }
         IBlockState iBlockState = Blocks.AIR.getDefaultState();
         if(flag){
-            world.setBlockState(pos.add(0,0,0), iBlockState, 4);
+            world.setBlockState(pos, iBlockState, 4);
             world.setBlockState(pos.add(1,0,0), iBlockState, 4);
             world.setBlockState(pos.add(0,0,1), iBlockState, 4);
             world.setBlockState(pos.add(1,0,1), iBlockState, 4);
@@ -130,7 +142,7 @@ public class CVLSTSaplings extends BlockBush implements IGrowable {
         }
         if(!gen.generate(world, rand, pos)){
             if(flag){
-                world.setBlockState(pos.add(0,0,0), iBlockState, 4);
+                world.setBlockState(pos, iBlockState, 4);
                 world.setBlockState(pos.add(1,0,0), iBlockState, 4);
                 world.setBlockState(pos.add(0,0,1), iBlockState, 4);
                 world.setBlockState(pos.add(1,0,1), iBlockState, 4);
@@ -139,5 +151,14 @@ public class CVLSTSaplings extends BlockBush implements IGrowable {
                 world.setBlockState(pos, iBlockState, 4);
             }
         }
+    }
+    //from minacraft base code
+    private boolean isTwoByTwoOfType(World worldIn, BlockPos pos, int p_181624_3_, int p_181624_4_){
+        return this.isTypeAt(worldIn, pos.add(p_181624_3_, 0, p_181624_4_)) && this.isTypeAt(worldIn, pos.add(p_181624_3_ + 1, 0, p_181624_4_)) && this.isTypeAt(worldIn, pos.add(p_181624_3_, 0, p_181624_4_ + 1)) && this.isTypeAt(worldIn, pos.add(p_181624_3_ + 1, 0, p_181624_4_ + 1));
+    }
+    //from minacraft base code
+    public boolean isTypeAt(World worldIn, BlockPos pos){
+        IBlockState iblockstate = worldIn.getBlockState(pos);
+        return iblockstate.getBlock() == this;
     }
 }
