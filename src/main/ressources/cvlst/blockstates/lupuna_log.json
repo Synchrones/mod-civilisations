@@ -1,9 +1,9 @@
 {
   "variants": {
-    "axis=x": {"model": "cvlst:lupuna_log"},
+    "axis=x": {"model": "cvlst:lupuna_log", "x": 90,"y": 90},
     "axis=y": {"model": "cvlst:lupuna_log"},
     "axis=none": {"model": "cvlst:lupuna_log"},
-    "axis=z": {"model": "cvlst:lupuna_log"}
+    "axis=z": {"model": "cvlst:lupuna_log", "x": 90}
   }
 }
 
