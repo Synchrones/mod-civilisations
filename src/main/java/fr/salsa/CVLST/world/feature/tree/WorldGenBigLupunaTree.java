@@ -113,20 +113,17 @@ public class WorldGenBigLupunaTree extends WorldGenHugeTrees {
             if (logState.getBlock().isAir(logState, world, up) || logState.getBlock().isLeaves(logState, world, up) || logState.getBlock() == ModBlocks.lupunaSapling){
                 this.setBlockAndNotifyAdequately(world, pos.up(logheight), log);
             }
-            if (logheight < height - 2){
-                if (logState.getBlock().isAir(logState, world, up.add(1,0,0)) || logState.getBlock().isLeaves(logState, world, up) || logState.getBlock() == ModBlocks.lupunaSapling) {
-                    this.setBlockAndNotifyAdequately(world, pos.up(logheight).add(1,0,0), log);
-                }
-                if (logState.getBlock().isAir(logState, world, up.add(1,0,1)) || logState.getBlock().isLeaves(logState, world, up) || logState.getBlock() == ModBlocks.lupunaSapling) {
-                    this.setBlockAndNotifyAdequately(world, pos.up(logheight).add(1,0,1), log);
-                }
-                if (logState.getBlock().isAir(logState, world, up.add(0,0,1)) || logState.getBlock().isLeaves(logState, world, up) || logState.getBlock() == ModBlocks.lupunaSapling) {
-                    this.setBlockAndNotifyAdequately(world, pos.up(logheight).add(0,0,1), log);
-                }
+            if (logState.getBlock().isAir(logState, world, up.add(1,0,0)) || logState.getBlock().isLeaves(logState, world, up) || logState.getBlock() == ModBlocks.lupunaSapling) {
+                this.setBlockAndNotifyAdequately(world, pos.up(logheight).add(1,0,0), log);
+            }
+            if (logState.getBlock().isAir(logState, world, up.add(1,0,1)) || logState.getBlock().isLeaves(logState, world, up) || logState.getBlock() == ModBlocks.lupunaSapling) {
+                this.setBlockAndNotifyAdequately(world, pos.up(logheight).add(1,0,1), log);
+            }
+            if (logState.getBlock().isAir(logState, world, up.add(0,0,1)) || logState.getBlock().isLeaves(logState, world, up) || logState.getBlock() == ModBlocks.lupunaSapling) {
+                this.setBlockAndNotifyAdequately(world, pos.up(logheight).add(0,0,1), log);
             }
         }
     }
-
     private void genMiddleBranch(World world, BlockPos pos){
         Random rand = new Random();
         int branchnumber = 2 + rand.nextInt(2);
