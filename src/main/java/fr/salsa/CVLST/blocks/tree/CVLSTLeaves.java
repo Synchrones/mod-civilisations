@@ -78,7 +78,7 @@ public class CVLSTLeaves extends BlockLeaves {
     }
     @Override
     public BlockRenderLayer getBlockLayer() {
-        return BlockRenderLayer.TRANSLUCENT;
+        return BlockRenderLayer.CUTOUT;
     }
     @Override
     protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
