@@ -414,6 +414,6 @@ public class WorldGenBigLupunaTree extends WorldGenHugeTrees {
                 }
             }
         }
-        setBlockAndNotifyAdequately(world, downleaves.add(0,0,0), log);
+        setBlockAndNotifyAdequately(world, downleaves.add(0,-1,0), log);
     }
 }
