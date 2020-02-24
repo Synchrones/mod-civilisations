@@ -16,16 +16,14 @@ import java.util.Random;
 public class WorldGenBigLupunaTree extends WorldGenHugeTrees {
     public static final IBlockState log = ModBlocks.lupunaLog.getDefaultState();
     public static final IBlockState leaf = ModBlocks.lupunaLeave.getDefaultState().withProperty(CVLSTLeaves.CHECK_DECAY, Boolean.valueOf(false));
-    private int minHeight;
 
     public WorldGenBigLupunaTree() {
         super(false, 30, 8, null, null);
-        this.minHeight = 30;
     }
 
     @Override
     public boolean generate(World world, Random rand, BlockPos pos) {
-        int height = this.minHeight + rand.nextInt(8);
+        int height = 30 + rand.nextInt(8);
         boolean flag = true;
         int x = pos.getX();
         int y = pos.getY();
