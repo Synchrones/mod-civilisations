@@ -405,7 +405,6 @@ public class WorldGenBigLupunaTree extends WorldGenHugeTrees {
         Random rand = new Random();
         BlockPos downleaves = pos.add(0,logheight - 8,0);
         int height = 6 + rand.nextInt(3);
-        setBlockAndNotifyAdequately(world, downleaves.add(0,1,0), log);
         for(int i2 = 0; i2 < 2; i2++){
             for(int i1 = 0; i1 < 4; i1++){
                 int x = -1 + rand.nextInt(2);
@@ -415,5 +414,6 @@ public class WorldGenBigLupunaTree extends WorldGenHugeTrees {
                 }
             }
         }
+        setBlockAndNotifyAdequately(world, downleaves.add(0,0,0), log);
     }
 }
