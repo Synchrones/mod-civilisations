@@ -26,8 +26,7 @@ public class ModBlocks {
     public static final Block rubyBlock = new CVLSTBlocks("ruby_block", Material.IRON, 5.0f, 30.0f, 1, "pickaxe");
     public static final Block saphirBlock = new CVLSTBlocks("saphir_block", Material.IRON, 5.0f, 30.0f, 1, "pickaxe");
     public static final Block LupunaLog = new CVLSTLog("lupuna_log");
-    public static final Block LupunaPlank = new CVLSTPlank("lupuna_plank");
-    public static final Block LupunaLeave = new CVLSTLeaves("lupuna_leave");
+    public static final Block lupunaPlank = new CVLSTBlocks("lupuna_plank", Material.WOOD,2.0F, 5.0F, 0, "axe");
     public static final Block LupunaSapling = new CVLSTSaplings("lupuna_saplings");
 
 //a utiliser un jour ou l'autre...
