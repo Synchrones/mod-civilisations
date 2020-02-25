@@ -4,7 +4,8 @@ import fr.salsa.CVLST.init.ModBiomes;
 import fr.salsa.CVLST.init.ModBlocks;
 import fr.salsa.CVLST.init.ModEntity;
 import fr.salsa.CVLST.init.ModItems;
-import fr.salsa.CVLST.world.gen.DenseJungleTreeGen;
+//import fr.salsa.CVLST.world.gen.DenseJungleTreeGen;//
+import fr.salsa.CVLST.world.gen.CustomTreeGen;
 import fr.salsa.CVLST.world.gen.generators.WorldGenCustomStructures;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -24,6 +25,7 @@ public class RegisteringEvent {
     public static void registerBlocks(RegistryEvent.Register<Block> e) {
         e.getRegistry().registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
     }
+
     public static void preInitRegistries(FMLPreInitializationEvent e){
         ModEntity.registerEntities();
     }
@@ -31,6 +33,7 @@ public class RegisteringEvent {
     public static void otherRegistries() {
         ModBiomes.registerBiomes();
         GameRegistry.registerWorldGenerator(new WorldGenCustomStructures(), 0);
-        GameRegistry.registerWorldGenerator(new DenseJungleTreeGen(), 0);
+        GameRegistry.registerWorldGenerator(new CustomTreeGen(), 0);
+        //GameRegistry.registerWorldGenerator(new DenseJungleTreeGen(), 0);//
     }
 }
