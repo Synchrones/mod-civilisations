@@ -8,9 +8,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBlock;
 
-public class CVLSTPlank extends Block {
+public class CVLSTPlank extends BlockPlanks {
     public CVLSTPlank(String name) {
-        super(Material.WOOD);
+        super();
         setRegistryName(name).setUnlocalizedName(name);
         setCreativeTab(ModMain.modtab);
         ModBlocks.BLOCKS.add(this);
