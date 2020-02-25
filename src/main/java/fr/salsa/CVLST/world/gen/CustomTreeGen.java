@@ -3,6 +3,7 @@ package fr.salsa.CVLST.world.gen;
 
 import fr.salsa.CVLST.world.biomes.DenseJungle;
 import fr.salsa.CVLST.world.feature.tree.WorldGenBigLupunaTree;
+import fr.salsa.CVLST.world.feature.tree.WorldGenLupunaTree;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -14,8 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class BigLupunaTreeGen implements IWorldGenerator {
-    private final WorldGenerator lupuna = new WorldGenBigLupunaTree();
+public class CustomTreeGen implements IWorldGenerator {
+    private final WorldGenerator biglupuna = new WorldGenBigLupunaTree();
+    private final WorldGenerator lupuna = new WorldGenLupunaTree();
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
@@ -23,11 +25,13 @@ public class BigLupunaTreeGen implements IWorldGenerator {
             case 1:
                 break;
             case 0:
+                runGenerator(biglupuna, world, random, chunkX, chunkZ, 20, -1, 0, DenseJungle.class);
                 runGenerator(lupuna, world, random, chunkX, chunkZ, 30, -1, 0, DenseJungle.class);
                 break;
             case -1:
         }
     }
+
     private void runGenerator(WorldGenerator generator, World world, Random random, int chunkX, int chunkZ, double chancesToSpawn, int minHeight, int maxHeight, Class<?>... classes){
         if (chancesToSpawn < 1) {
             if (random.nextDouble() < chancesToSpawn) chancesToSpawn = 1;
