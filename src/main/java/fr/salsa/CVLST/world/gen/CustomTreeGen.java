@@ -25,8 +25,8 @@ public class CustomTreeGen implements IWorldGenerator {
             case 1:
                 break;
             case 0:
-                runGenerator(biglupuna, world, random, chunkX, chunkZ, 20, -1, 0, DenseJungle.class);
-                runGenerator(lupuna, world, random, chunkX, chunkZ, 30, -1, 0, DenseJungle.class);
+                runGenerator(biglupuna, world, random, chunkX, chunkZ, 15, -1, 0, DenseJungle.class);
+                runGenerator(lupuna, world, random, chunkX, chunkZ, 10, -1, 0, DenseJungle.class);
                 break;
             case -1:
         }
