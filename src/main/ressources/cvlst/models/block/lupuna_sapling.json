@@ -1,0 +1,6 @@
+{
+  "parent": "block/cross",
+  "textures": {
+    "cross": "cvlst:blocks/lupuna_sapling"
+  }
+}
