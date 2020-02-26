@@ -1,6 +1,6 @@
 package fr.salsa.CVLST.world.gen.generators;
 
-import fr.salsa.CVLST.world.biomes.BiomeTest;
+import fr.salsa.CVLST.world.biomes.DenseJungle;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 public class WorldGenCustomStructures implements IWorldGenerator {
-    public static final WorldGenStructure TempleRuby = new WorldGenStructure("TempleRuby");
+    public static final WorldGenStructure parenttree = new WorldGenStructure("parenttree");
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
@@ -24,12 +24,12 @@ public class WorldGenCustomStructures implements IWorldGenerator {
             case 1:
                 break;
             case 0:
-                generateStructure(TempleRuby, world, random, chunkX, chunkZ, 5, Blocks.GRASS, BiomeTest.class);
+                generateStructure(parenttree, world, random, chunkX, chunkZ, 5, Blocks.GRASS, DenseJungle.class);
                 break;
             case -1:
-
         }
     }
+
     private void generateStructure(WorldGenerator generator, World world, Random random, int chunkX, int chunkZ, int chance, Block topblock, Class<?>...classes){
         ArrayList<Class<?>> classeslist = new ArrayList<Class<?>>(Arrays.asList(classes));
         int x = (chunkX * 16) + random.nextInt(15);
