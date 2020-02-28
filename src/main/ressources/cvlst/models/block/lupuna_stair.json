@@ -1,0 +1,8 @@
+{
+  "parent": "block/stairs",
+  "textures": {
+    "bottom": "cvlst:blocks/lupuna_plank",
+    "top": "cvlst:blocks/lupuna_plank",
+    "side": "cvlst:blocks/lupuna_plank"
+  }
+}
