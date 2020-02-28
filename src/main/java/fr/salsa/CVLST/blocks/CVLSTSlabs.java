@@ -1,9 +1,11 @@
 package fr.salsa.CVLST.blocks;
 
 
+import com.google.common.base.Predicate;
 import fr.salsa.CVLST.ModMain;
 import fr.salsa.CVLST.init.ModBlocks;
 import fr.salsa.CVLST.utils.handler.EnumHandler;
+import fr.salsa.CVLST.utils.interfaces.IMetaName;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -17,18 +19,22 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import javax.annotation.Nullable;
 import java.util.Random;
 
 
-public class CVLSTSlabs extends BlockSlab {
-    public static final PropertyEnum<EnumHandler.EnumSlab> variant = PropertyEnum.<EnumHandler.EnumSlab>create("variant", EnumHandler.EnumSlab.class);
+public class CVLSTSlabs extends BlockSlab implements IMetaName {
+
+    public static final PropertyEnum<EnumHandler.EnumSlab> variant = PropertyEnum.<EnumHandler.EnumSlab>create("variant", EnumHandler.EnumSlab.class, new Predicate<EnumHandler.EnumSlab>(){
+        public boolean apply(@Nullable EnumHandler.EnumSlab apply){
+            return apply.getMeta()< 1; //2 est le nombre d'enum dans EnumSlab
+        }
+    });
     public boolean isDoubleSlab;
     public CVLSTSlabs(Material materialIn, boolean isDouble) {
         super(materialIn);
         this.isDoubleSlab = isDouble;
-        IBlockState state = this.blockState.getBaseState();
+        IBlockState state = this.blockState.getBaseState().withProperty(variant, EnumHandler.EnumSlab.lupuna);
         this.useNeighborBrightness = !this.isDoubleSlab;
         this.setCreativeTab(ModMain.modtab);
         if (!this.isDouble()){
@@ -84,12 +90,9 @@ public class CVLSTSlabs extends BlockSlab {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-        if (this != ModBlocks.doubleSlabs) {
-            for (EnumHandler.EnumSlab slab : EnumHandler.EnumSlab.values()) {
-                list.add(new ItemStack(this, 1, slab.getMeta()));
-            }
+    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+        for (EnumHandler.EnumSlab enumSlab : EnumHandler.EnumSlab.values()) {
+            items.add(new ItemStack(this, 1, enumSlab.getMeta()));
         }
     }
 
@@ -100,6 +103,11 @@ public class CVLSTSlabs extends BlockSlab {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return this.isDouble() ? new BlockStateContainer(this, new IProperty[] {variant, HALF}): new BlockStateContainer(this, new IProperty[] {variant});
+        return this.isDouble() ? new BlockStateContainer(this, HALF, variant): new BlockStateContainer(this, variant);
+    }
+
+    @Override
+    public String getSpecialName(ItemStack stack) {
+        return EnumHandler.EnumSlab.values()[stack.getItemDamage()].getName();
     }
 }
