@@ -34,9 +34,8 @@ public class ModBlocks {
     public static final Block lupunaLeave = new CVLSTLeaves("lupuna_leave");
     public static final Block lupunaSapling = new CVLSTSaplings("lupuna_sapling");
     public static final Block lupuna_stair = new CVLSTStairs(Blocks.PLANKS.getDefaultState(), "lupuna_stair");
-    public static final BlockSlab lupuna_slab_double = (BlockSlab) new CVLSTSlabDouble("copper_slab_double", Material.IRON, ModBlocks.lupuna_slab_half).getDefaultState().withProperty(CVLSTSlabs.variant, CVLSTSlabs.Variant.lupuna);
-    public static final BlockSlab lupuna_slab_half = (BlockSlab) new CVLSTSlabHalf("copper_slab_half", Material.IRON, ModBlocks.lupuna_slab_half, ModBlocks.lupuna_slab_double).getDefaultState().withProperty(CVLSTSlabs.variant, CVLSTSlabs.Variant.lupuna);
-
+    public static final BlockSlab slabs = new CVLSTSlabs(Material.WOOD, false);
+    public static final BlockSlab doubleSlabs = new CVLSTSlabs(Material.WOOD, true);
 
 
 
