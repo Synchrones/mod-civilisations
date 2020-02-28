@@ -27,7 +27,7 @@ public class CVLSTSlabs extends BlockSlab implements IMetaName {
 
     public static final PropertyEnum<EnumHandler.EnumSlab> variant = PropertyEnum.<EnumHandler.EnumSlab>create("variant", EnumHandler.EnumSlab.class, new Predicate<EnumHandler.EnumSlab>(){
         public boolean apply(@Nullable EnumHandler.EnumSlab apply){
-            return apply.getMeta()< 1; //2 est le nombre d'enum dans EnumSlab
+            return apply.getMeta()< 1; //le nombre est le nombre d'enum dans EnumSlab
         }
     });
     public boolean isDoubleSlab;
