@@ -1,5 +1,6 @@
 package fr.salsa.CVLST.blocks;
 
+
 import fr.salsa.CVLST.ModMain;
 import fr.salsa.CVLST.init.ModBlocks;
 import fr.salsa.CVLST.utils.handler.EnumHandler;
@@ -30,7 +31,9 @@ public class CVLSTSlabs extends BlockSlab {
         IBlockState state = this.blockState.getBaseState();
         this.useNeighborBrightness = !this.isDoubleSlab;
         this.setCreativeTab(ModMain.modtab);
-        if (!this.isDouble()) state = state.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+        if (!this.isDouble()){
+            state = state.withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+        }
         this.setDefaultState(state.withProperty(variant, EnumHandler.EnumSlab.lupuna));
         this.setSoundType(SoundType.WOOD);
         ModBlocks.BLOCKS.add(this);
@@ -95,9 +98,8 @@ public class CVLSTSlabs extends BlockSlab {
         return state.getValue(variant).getMeta();
     }
 
-
     @Override
     protected BlockStateContainer createBlockState() {
-        return this.isDouble() ? new BlockStateContainer(this, new IProperty[] {variant,HALF}): new BlockStateContainer(this, new IProperty[] {variant});
+        return this.isDouble() ? new BlockStateContainer(this, new IProperty[] {variant, HALF}): new BlockStateContainer(this, new IProperty[] {variant});
     }
 }
