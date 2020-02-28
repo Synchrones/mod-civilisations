@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "half=top": { "model": "cvlst:lupuna_upper_slab" },
+    "half=bottom": { "model": "cvlst:lupuna_slab" }
+  }
+}
