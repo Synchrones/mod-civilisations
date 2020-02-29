@@ -34,7 +34,7 @@ public class ModBlocks {
     public static final Block lupunaSapling = new CVLSTSaplings("lupuna_sapling");
     public static final Block lupuna_stair = new CVLSTStairs(Blocks.PLANKS.getDefaultState(), "lupuna_stair");
     public static final BlockSlab cvlstSlabDouble = new CVLSTSlabs("cvlst_slab_double", Material.WOOD,true);
-
+    public static final BlockSlab CvlstSlabHalf = new CVLSTSlabs("cvlst_slab_half", Material.WOOD,false);
 
 
     @SubscribeEvent
