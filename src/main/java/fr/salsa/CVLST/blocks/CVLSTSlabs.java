@@ -1,8 +1,8 @@
 package fr.salsa.CVLST.blocks;
 
-
 import com.google.common.base.Predicate;
 import fr.salsa.CVLST.ModMain;
+import fr.salsa.CVLST.blocks.items.ItemBlockVariants;
 import fr.salsa.CVLST.init.ModBlocks;
 import fr.salsa.CVLST.init.ModItems;
 import fr.salsa.CVLST.utils.handler.EnumHandler;
@@ -15,16 +15,18 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+
 import javax.annotation.Nullable;
 
 public class CVLSTSlabs extends BlockSlab implements IMetaName {
 
     public static final PropertyEnum<EnumHandler.EnumSlab> variant = PropertyEnum.<EnumHandler.EnumSlab>create("variant", EnumHandler.EnumSlab.class, new Predicate<EnumHandler.EnumSlab>(){
         public boolean apply(@Nullable EnumHandler.EnumSlab apply){
-            return apply.getMeta()< 1; //le nombre est le nombre d'enum dans EnumSlab
+            return apply.getMeta()< 2; //le nombre est le nombre d'enum dans EnumSlab
         }
     });
     public boolean isDoubleSlab;
@@ -38,7 +40,7 @@ public class CVLSTSlabs extends BlockSlab implements IMetaName {
         this.setCreativeTab(ModMain.modtab);
         if (!this.isDouble()){
             state = state.withProperty(HALF, EnumBlockHalf.BOTTOM);
-            ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+            ModItems.ITEMS.add(new ItemBlockVariants(this).setRegistryName(this.getRegistryName()));
         }
         this.setDefaultState(state.withProperty(variant, EnumHandler.EnumSlab.lupuna));
         this.setSoundType(SoundType.WOOD);
@@ -48,6 +50,12 @@ public class CVLSTSlabs extends BlockSlab implements IMetaName {
     @Override
     public String getUnlocalizedName(int meta) {
         return super.getUnlocalizedName() + "." + EnumHandler.EnumSlab.byMetadata(meta).getName();
+    }
+
+    @Override
+    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+        return new ItemStack(ModBlocks.CvlstSlabHalf, 1, ((EnumHandler.EnumSlab)state.getValue(variant)).getMeta());
+
     }
 
     @Override
