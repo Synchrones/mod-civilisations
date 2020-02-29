@@ -49,7 +49,7 @@ public class CVLSTSlabs extends BlockSlab implements IMetaName {
 
     @Override
     public String getUnlocalizedName(int meta) {
-        return super.getUnlocalizedName() + "." + EnumHandler.EnumSlab.byMetadata(meta).getName();
+    return super.getUnlocalizedName() + "." + EnumHandler.EnumSlab.byMetadata(meta).getUnlocalizedName();    
     }
 
     @Override
