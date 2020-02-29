@@ -1,13 +1,14 @@
 package fr.salsa.CVLST.init;
 
+import fr.salsa.CVLST.ModMain;
 import fr.salsa.CVLST.blocks.*;
-import fr.salsa.CVLST.blocks.CVLSTSlabs;
+import fr.salsa.CVLST.blocks.slabs.CVLSTSlabsDouble;
+import fr.salsa.CVLST.blocks.slabs.CVLSTSlabsHalf;
 import fr.salsa.CVLST.blocks.trees.CVLSTLeaves;
 import fr.salsa.CVLST.blocks.trees.CVLSTLog;
 import fr.salsa.CVLST.blocks.trees.CVLSTSaplings;
 import fr.salsa.CVLST.utils.References;
 import net.minecraft.block.Block;
-
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -19,7 +20,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,8 +33,8 @@ public class ModBlocks {
     public static final Block lupunaLeave = new CVLSTLeaves("lupuna_leave");
     public static final Block lupunaSapling = new CVLSTSaplings("lupuna_sapling");
     public static final Block lupuna_stair = new CVLSTStairs(Blocks.PLANKS.getDefaultState(), "lupuna_stair");
-    public static final BlockSlab cvlstSlabDouble = new CVLSTSlabs("cvlst_slab_double", Material.WOOD,true);
-    public static final BlockSlab CvlstSlabHalf = new CVLSTSlabs("cvlst_slab_half", Material.WOOD,false);
+    public static final BlockSlab lupunaSlabDouble = new CVLSTSlabsDouble("lupuna_slab_double", Material.WOOD, ModBlocks.lupunaSlabHalf, ModMain.modtab);
+    public static final BlockSlab lupunaSlabHalf = new CVLSTSlabsHalf("lupuna_slab_half", Material.WOOD, ModBlocks.lupunaSlabHalf, ModBlocks.lupunaSlabDouble, ModMain.modtab);
 
 
     @SubscribeEvent
