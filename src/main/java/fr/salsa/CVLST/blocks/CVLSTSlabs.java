@@ -1,6 +1,5 @@
 package fr.salsa.CVLST.blocks;
 
-import com.google.common.base.Predicate;
 import fr.salsa.CVLST.ModMain;
 import fr.salsa.CVLST.blocks.items.ItemBlockVariants;
 import fr.salsa.CVLST.init.ModBlocks;
@@ -20,15 +19,10 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
 
 public class CVLSTSlabs extends BlockSlab implements IMetaName {
 
-    public static final PropertyEnum<EnumHandler.EnumSlab> variant = PropertyEnum.<EnumHandler.EnumSlab>create("variant", EnumHandler.EnumSlab.class, new Predicate<EnumHandler.EnumSlab>(){
-        public boolean apply(@Nullable EnumHandler.EnumSlab apply){
-            return apply.getMeta()< 2; //le nombre est le nombre d'enum dans EnumSlab
-        }
-    });
+    public static final PropertyEnum<EnumHandler.EnumSlab> variant = PropertyEnum.<EnumHandler.EnumSlab>create("variant", EnumHandler.EnumSlab.class);
     public boolean isDoubleSlab;
     public CVLSTSlabs(String name, Material materialIn, boolean isDouble) {
         super(materialIn);
@@ -49,7 +43,7 @@ public class CVLSTSlabs extends BlockSlab implements IMetaName {
 
     @Override
     public String getUnlocalizedName(int meta) {
-    return super.getUnlocalizedName() + "." + EnumHandler.EnumSlab.byMetadata(meta).getName();    
+        return super.getUnlocalizedName() + "." + EnumHandler.EnumSlab.byMetadata(meta).getName();
     }
 
     @Override
