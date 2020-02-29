@@ -8,6 +8,7 @@ import fr.salsa.CVLST.blocks.trees.CVLSTSaplings;
 import fr.salsa.CVLST.utils.References;
 import net.minecraft.block.Block;
 
+import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
@@ -32,8 +33,8 @@ public class ModBlocks {
     public static final Block lupunaLeave = new CVLSTLeaves("lupuna_leave");
     public static final Block lupunaSapling = new CVLSTSaplings("lupuna_sapling");
     public static final Block lupuna_stair = new CVLSTStairs(Blocks.PLANKS.getDefaultState(), "lupuna_stair");
-    public static final Block lupunaSlabHalf = new CVLSTSlabs("lupuna_slab_half", Material.WOOD, false);
-    public static final Block lupunaSlabDouble = new CVLSTSlabs("lupuna_slab_double", Material.WOOD,true);
+    public static final BlockSlab cvlstSlabDouble = new CVLSTSlabs("cvlst_slab_double", Material.WOOD,true);
+
 
 
     @SubscribeEvent
