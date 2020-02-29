@@ -4,6 +4,7 @@ package fr.salsa.CVLST.blocks;
 import com.google.common.base.Predicate;
 import fr.salsa.CVLST.ModMain;
 import fr.salsa.CVLST.init.ModBlocks;
+import fr.salsa.CVLST.init.ModItems;
 import fr.salsa.CVLST.utils.handler.EnumHandler;
 import fr.salsa.CVLST.utils.interfaces.IMetaName;
 import net.minecraft.block.BlockSlab;
@@ -14,6 +15,7 @@ import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import javax.annotation.Nullable;
@@ -36,12 +38,12 @@ public class CVLSTSlabs extends BlockSlab implements IMetaName {
         this.setCreativeTab(ModMain.modtab);
         if (!this.isDouble()){
             state = state.withProperty(HALF, EnumBlockHalf.BOTTOM);
+            ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
         }
         this.setDefaultState(state.withProperty(variant, EnumHandler.EnumSlab.lupuna));
         this.setSoundType(SoundType.WOOD);
         ModBlocks.BLOCKS.add(this);
     }
-
 
     @Override
     public String getUnlocalizedName(int meta) {
@@ -92,7 +94,7 @@ public class CVLSTSlabs extends BlockSlab implements IMetaName {
 
     @Override
     protected BlockStateContainer createBlockState() {
-        return this.isDouble() ? new BlockStateContainer(this, new IProperty[]{variant, HALF}): new BlockStateContainer(this, new IProperty[]{variant});
+        return (!this.isDouble()) ? new BlockStateContainer(this, new IProperty[]{variant, HALF}): new BlockStateContainer(this, new IProperty[]{variant});
     }
 
     @Override
