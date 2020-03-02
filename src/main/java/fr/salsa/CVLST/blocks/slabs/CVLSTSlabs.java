@@ -12,8 +12,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import java.util.Random;
 
 
@@ -24,6 +22,9 @@ public abstract class CVLSTSlabs extends BlockSlab {
         super(materialIn);
         setUnlocalizedName(name);
         setRegistryName(name);
+        setCreativeTab(tab);
+        this.setHardness(2.0F);
+        this.setResistance(5.0F);
         this.useNeighborBrightness = !this.isDouble();
         IBlockState state = this.blockState.getBaseState().withProperty(variant, Variant.DEFAULT);
         if(!this.isDouble()) state = state.withProperty(HALF, EnumBlockHalf.BOTTOM);
@@ -34,12 +35,7 @@ public abstract class CVLSTSlabs extends BlockSlab {
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
-        return Item.getItemFromBlock(half);
-    }
-
-    @Override
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
-        return new ItemStack(half);
+        if(!this.isDouble()) return Item.getItemFromBlock(state.getBlock()); else return Item.getItemFromBlock(getSlabHalf(state));
     }
 
     @Override
@@ -78,6 +74,14 @@ public abstract class CVLSTSlabs extends BlockSlab {
     @Override
     public Comparable<?> getTypeForItem(ItemStack stack) {
         return Variant.DEFAULT;
+    }
+    public Block getSlabHalf(IBlockState state){
+        if (ModBlocks.lupunaSlabDouble.equals(state.getBlock())) {
+            return(ModBlocks.lupunaSlabHalf);
+        }
+        else{
+            return null;
+        }
     }
 
     public static enum Variant implements IStringSerializable {
