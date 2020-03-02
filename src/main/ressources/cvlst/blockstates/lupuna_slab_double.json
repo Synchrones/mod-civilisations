@@ -1,0 +1,6 @@
+{
+  "variants":
+  {
+    "variant=default": { "model": "cvlst:lupuna_slab_double" }
+  }
+}
