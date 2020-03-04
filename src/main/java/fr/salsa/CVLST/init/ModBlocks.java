@@ -36,6 +36,9 @@ public class ModBlocks {
     public static final BlockSlab lupunaSlabDouble = new CVLSTSlabsDouble("lupuna_slab_double", Material.WOOD, ModBlocks.lupunaSlabHalf, ModMain.modtab);
     public static final BlockSlab lupunaSlabHalf = new CVLSTSlabsHalf("lupuna_slab_half", Material.WOOD, ModBlocks.lupunaSlabHalf, ModBlocks.lupunaSlabDouble, ModMain.modtab);
     public static final Block LupunaDoor = new CVLSTDoor("lupuna_door", Material.WOOD);
+    public static final Block LupunaTrapdoor = new CVLSTTrapDoor("lupuna_trapdoor", Material.WOOD);
+    public static final Block LupunaFence = new CVLSTFence("lupuna_fence", Material.WOOD);
+    public static final Block LupunaFenceGate = new CVLSTFenceGate("lupuna_fence_gate");
 
 
     @SubscribeEvent
