@@ -1,0 +1,6 @@
+{
+  "parent": "block/trapdoor_top",
+  "textures": {
+    "texture": "cvlst:blocks/lupuna_trapdoor"
+  }
+}
