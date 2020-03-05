@@ -1,0 +1,12 @@
+[
+{
+"modid": "cvlst",
+"name": "civilisations",
+"description": "A mod that add new biomes, boss, and of course civilisations",
+"version": ".1.0",
+"mcversion": "1.12",
+"authorList": ["Salsabanana", "Neilrom(textures)"],
+"screenshots": [],
+"dependencies": []
+}
+]
