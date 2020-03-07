@@ -3,7 +3,6 @@ package fr.salsa.CVLST.blocks.trees;
 import fr.salsa.CVLST.ModMain;
 import fr.salsa.CVLST.init.ModBlocks;
 import fr.salsa.CVLST.init.ModItems;
-import fr.salsa.CVLST.utils.handler.EnumHandler;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.properties.IProperty;
@@ -20,9 +19,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.Random;
 
 public class CVLSTLeaves extends BlockLeaves {
     public CVLSTLeaves(String name) {
@@ -38,19 +37,16 @@ public class CVLSTLeaves extends BlockLeaves {
     }
 
     @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState();
+    public IBlockState getStateFromMeta(int meta)
+    {
+        return this.getDefaultState().withProperty(DECAYABLE, Boolean.valueOf((meta & 4) == 0)).withProperty(CHECK_DECAY, Boolean.valueOf((meta & 8) > 0));
     }
     @Override
-    public int getMetaFromState(IBlockState state) {
+    public int getMetaFromState(IBlockState state)
+    {
         int i = 0;
-        if(!((Boolean)state.getValue(DECAYABLE)).booleanValue()) {
-            i |= 2;
-
-        }
-        if(!((Boolean)state.getValue(CHECK_DECAY)).booleanValue()) {
-            i |= 4;
-        }
+        if(!((Boolean)state.getValue(DECAYABLE)).booleanValue()) i |= 2;
+        if(!((Boolean)state.getValue(CHECK_DECAY)).booleanValue()) i|= 4;
         return i;
     }
 
@@ -69,17 +65,20 @@ public class CVLSTLeaves extends BlockLeaves {
     }
 
     @Override
-    public BlockPlanks.EnumType getWoodType(int meta) {
-        return null;
-    }
-    @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
+
     @Override
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT;
     }
+
+    @Override
+    public BlockPlanks.EnumType getWoodType(int meta) {
+        return null;
+    }
+
     @Override
     protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
         return;
@@ -88,5 +87,15 @@ public class CVLSTLeaves extends BlockLeaves {
     @Override
     protected int getSaplingDropChance(IBlockState state) {
         return 30;
+    }
+
+    @Override
+    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
+        return true;
+    }
+
+    @Override
+    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+        return Item.getItemFromBlock(ModBlocks.lupunaSapling);
     }
 }
