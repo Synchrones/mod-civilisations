@@ -15,7 +15,7 @@ import java.util.Random;
 
 public class WorldGenBigLupunaTree extends WorldGenHugeTrees {
     public static final IBlockState log = ModBlocks.lupunaLog.getDefaultState();
-    public static final IBlockState leaf = ModBlocks.lupunaLeave.getDefaultState().withProperty(CVLSTLeaves.CHECK_DECAY, Boolean.valueOf(false));
+    public static final IBlockState leaf = ModBlocks.lupunaLeave.getDefaultState();
 
     public WorldGenBigLupunaTree() {
         super(false, 30, 8, null, null);
