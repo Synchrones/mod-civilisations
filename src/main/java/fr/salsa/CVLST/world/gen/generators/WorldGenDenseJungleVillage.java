@@ -32,7 +32,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         BlockPos pos2 = pos.add(15, 0, -11);
         generateStructure(worldIn, pos2.add(0, getSurfaceBlock(worldIn, pos2), 0), "richhouse1");
         generateStructure(worldIn, pos2.add(-4,getSurfaceBlock(worldIn, pos2) + 24,-4), "lupunatoptree");
-
+        genBridge(worldIn, pos.add(11, 13, 0), pos.add(11, 16, -10));
 
 
 
@@ -51,7 +51,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
 
 
 
-        
+
         return true;
     }
 
@@ -94,16 +94,20 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
             if(bridgelenghtx < 0) i2 = bridgelenghtx * -1; else i2 = bridgelenghtx; //calculate the highest bridge lenght between x and z
             if(bridgelenghtz < 0){
                 if(bridgelenghtz * -1 > i2) i2 = bridgelenghtz * -1;
+
+
+
+
             }
             else if(bridgelenghtz > i2){
-                i2 = bridgelenghtx;
+                i2 = bridgelenghtz;
                 int i3;
                 if(bridgelenghtx != 0){
                     if(bridgelenghtx < 0) i3 = i2 / bridgelenghtx * -1; else i3 = i2 / bridgelenghtx; // here we got the number of blocks between the x coordinate of the bridge will change
                 }
                 else i3 = bridgelenghtz + 1;
                 int i4;
-                if(bridgelenghty < 0) i4 = i2 / bridgelenghty * -1; else i4 = i2 / bridgelenghty;     // here we got the number of blocks between the y coordinate of the bridge will change
+                if(bridgelenghty < 0) i4 = i2 / (bridgelenghty -1)  * -1; else i4 = i2 / (bridgelenghty +1);     // here we got the number of blocks between the y coordinate of the bridge will change
 
 
                 int i5;
@@ -116,30 +120,29 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
                 if(bridgelenghtx < 0) i5 = bridgelenghtx * -1; else i5 = bridgelenghtx; // positive x
                 if(bridgelenghty < 0) i6 = bridgelenghty * -1; else i6 = bridgelenghty; // positive y
                 for(int i7 = 0; i7 < i2 +  i5 + i6; i7++ ){
+
                     if(i8 > i3) { //change the x coordinate at the right bloc
                         if(bridgelenghtx < 0) i9++; else i9--;
                         i8 = 0;
+                        if(i11 % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
+                        setBlockAndNotifyAdequately(world, posstart.add(i9, i11, i7), toporbottom);
                     }
+                    else if(i11 % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
+                    setBlockAndNotifyAdequately(world, posstart.add(i9, i11, -i7 + 1), toporbottom);
+                    i10++;
+                    i8++;
+                    
                     if(i10 > i4) { //change the y coordinate at the right bloc
                         if(bridgelenghty < 0) i11 = i11 + 0.5; else i11 = i11 - 0.5;
                         i10 = 0;
+                        if(i11 % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
+                        setBlockAndNotifyAdequately(world, posstart.add(i9, i11, i7 + 1), toporbottom);
                     }
-                    if(i11 % 2 == 0){   //check if the number is pair, if true, pos slab top, else bottom
-                        toporbottom = slabtop;
-                    }
-                    else toporbottom = slabbottom;
-
-                    setBlockAndNotifyAdequately(world, posstart.add(i9, i11, i7), toporbottom);
-                    
+                    else if(i11 % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
+                    setBlockAndNotifyAdequately(world, posstart.add(i9, i11, -i7 + 1), toporbottom);
                     i10++;
                     i8++;
                 }
-
-
-
-
-
-
             }
 
 
@@ -152,4 +155,3 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
 
 
 }
-
