@@ -4,7 +4,6 @@ import fr.salsa.CVLST.blocks.slabs.CVLSTSlabs;
 import fr.salsa.CVLST.init.ModBlocks;
 import fr.salsa.CVLST.utils.References;
 import fr.salsa.CVLST.utils.interfaces.IStructure;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -52,10 +51,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
 
 
 
-
-
-
-
+        
         return true;
     }
 
@@ -109,7 +105,35 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
                 int i4;
                 if(bridgelenghty < 0) i4 = i2 / bridgelenghty * -1; else i4 = i2 / bridgelenghty;     // here we got the number of blocks between the y coordinate of the bridge will change
 
-                
+
+                int i5;
+                int i6;
+                int i8 = 0;
+                int i9 = 0;
+                int i10 = 0;
+                double i11 = 0;
+                IBlockState toporbottom;
+                if(bridgelenghtx < 0) i5 = bridgelenghtx * -1; else i5 = bridgelenghtx; // positive x
+                if(bridgelenghty < 0) i6 = bridgelenghty * -1; else i6 = bridgelenghty; // positive y
+                for(int i7 = 0; i7 < i2 +  i5 + i6; i7++ ){
+                    if(i8 > i3) { //change the x coordinate at the right bloc
+                        if(bridgelenghtx < 0) i9++; else i9--;
+                        i8 = 0;
+                    }
+                    if(i10 > i4) { //change the y coordinate at the right bloc
+                        if(bridgelenghty < 0) i11 = i11 + 0.5; else i11 = i11 - 0.5;
+                        i10 = 0;
+                    }
+                    if(i11 % 2 == 0){   //check if the number is pair, if true, pos slab top, else bottom
+                        toporbottom = slabtop;
+                    }
+                    else toporbottom = slabbottom;
+
+                    setBlockAndNotifyAdequately(world, posstart.add(i9, i11, i7), toporbottom);
+                    
+                    i10++;
+                    i8++;
+                }
 
 
 
@@ -128,3 +152,4 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
 
 
 }
+
