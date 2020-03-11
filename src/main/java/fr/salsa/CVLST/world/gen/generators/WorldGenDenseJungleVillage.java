@@ -33,7 +33,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         BlockPos pos2 = pos.add(15, 0, -11);
         generateStructure(worldIn, pos2.add(0, getSurfaceBlock(worldIn, pos2), 0), "richhouse1");
         generateStructure(worldIn, pos2.add(-4,getSurfaceBlock(worldIn, pos2) + 24,-4), "lupunatoptree");
-        genBridge(worldIn, pos.add(11, 13, -10), pos.add(11, 16, 0));
+        genBridge(worldIn, pos.add(11, 13, 0), pos.add(9, 14, -10));
 
 
 
@@ -92,59 +92,65 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         if(bridgelenghty != 0){
             int i2;
 
-            if(bridgelenghtx < 0) i2 = bridgelenghtx * -1; else i2 = bridgelenghtx; //calculate the highest bridge lenght between x and z
+            if(bridgelenghtx < 0)i2 = bridgelenghtx * -1; else i2 = bridgelenghtx;
             if(bridgelenghtz < 0){
-                if(bridgelenghtz * -1 > i2) i2 = bridgelenghtz * -1;
-
-
-
+                if(bridgelenghtz * -1 > i2){
+                    i2 = bridgelenghtz * -1;
+                    genBridgeBlocks(world, posstart, i2, bridgelenghtz, bridgelenghtx, bridgelenghty, -1);
+                }
+                else{
+                    if(bridgelenghtx < 0) genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, -1); else genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, 1);
+                }
             }
             else if(bridgelenghtz > i2){
                 i2 = bridgelenghtz;
-                int i3;
-                if(bridgelenghtx != 0){
-                    if(bridgelenghtx < 0) i3 = i2 / bridgelenghtx * -1; else i3 = i2 / bridgelenghtx; // here we got the number of blocks between the x coordinate of the bridge will change
-                }
-                else i3 = bridgelenghtz + 1;
-                int i4;
-                if(bridgelenghty < 0) i4 = i2 / (bridgelenghty -1)  * -1; else i4 = i2 / (bridgelenghty +1);     // here we got the number of blocks between the y coordinate of the bridge will change
+                genBridgeBlocks(world, posstart, i2, bridgelenghtz, bridgelenghtx, bridgelenghty, 1);
+            }
+            else{
+                if(bridgelenghtx < 0) genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, -1); else genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, 1);
+            }
+        }
+    }
 
+    private void genBridgeBlocks(World world, BlockPos posstart, int i2, int highestbridgelenght, int lowestbridgelenght, int bridgelenghty, int HBLplusorminus){
+        int i3;
+        if(highestbridgelenght < 0) highestbridgelenght = highestbridgelenght * -1;
+        if(lowestbridgelenght != 0){
+            if(lowestbridgelenght < 0) i3 = i2 / lowestbridgelenght * -1; else i3 = i2 / lowestbridgelenght; // here we got the number of blocks between the x or z coordinate of the bridge will change
+        }
+        else i3 = highestbridgelenght + lowestbridgelenght + 1;
+        int i4;
+        if(bridgelenghty < 0) i4 = i2 / (bridgelenghty -1)  * -1; else i4 = i2 / (bridgelenghty * 2 + 1);  // here we got the number of blocks between the y coordinate of the bridge will change
 
-                int i5;
-                int i6;
-                int i8 = 0;
-                int i9 = 0;
-                int i10 = 0;
-                double i11 = 0;
-                IBlockState toporbottom;
-                if(bridgelenghtx < 0) i5 = bridgelenghtx * -1; else i5 = bridgelenghtx; // positive x
-                if(bridgelenghty < 0) i6 = bridgelenghty * -1; else i6 = bridgelenghty; // positive y
-                for(int i7 = 0; i7 < i2 +  i5 + i6; i7++ ){
-                    boolean flag = false;
-                    if(i8 > i3) { //change the x coordinate at the right bloc
-                        if(bridgelenghtx < 0) i9--; else i9++;
-                        i7--;// if the x coord change, the z doesn't
-                        i8 = 0;
-                        if((i11 * 2) % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
-                        setBlockAndNotifyAdequately(world, posstart.add(i9, i11, i7), toporbottom);
-                        flag = true;
-                    }
+        int i5 = 0;
+        int i6 = 0;
+        int i8 = 0;
+        double i9 = 0;
+        IBlockState toporbottom;
+        for(int i7 = 0; i7 < i2 ; i7++ ){
+            boolean flag = false;
+            if(i5 > i3) { //change the x or z coordinate at the right bloc
+                if(lowestbridgelenght < 0) i6--; else i6++;
+                i7--;// if the x or z coord change, the other one doesn't
+                i5 = 0;
+                if((i9 * 2) % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
+                setBlockAndNotifyAdequately(world, posstart.add(i6 , i9, i7 * HBLplusorminus), toporbottom);
+                flag = true;
+            }
 
-                    if(i10 > i4) { //change the y coordinate at the right bloc
-                        if(bridgelenghty < 0) i11 = i11 - 0.5; else i11 = i11 + 0.5;
-                        i7--;// if the y coord change, the z doesn't
-                        i10 = 0;
-                        if((i11 * 2) % 2 == 0) toporbottom = slabbottom; else toporbottom = doubleslab;
-                        setBlockAndNotifyAdequately(world, posstart.add(i9, i11, i7), doubleslab);
-                        flag =true;
-                    }
-                    if(!flag){
-                        if((i11 * 2) % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
-                        setBlockAndNotifyAdequately(world, posstart.add(i9, i11, i7), toporbottom);
-                        i10++;
-                        i8++;
-                    }
-                }
+            if(i8 > i4) { //change the y coordinate at the right bloc
+                if(bridgelenghty < 0) i9 = i9 - 0.5; else i9 = i9 + 0.5;
+                i7--;// if the y coord change, the z or x doesn't
+                i8 = 0;
+                if((i9 * 2) % 2 == 0) toporbottom = slabbottom; else toporbottom = doubleslab;
+                setBlockAndNotifyAdequately(world, posstart.add(i6 , i9, i7 * HBLplusorminus), toporbottom);
+                flag =true;
+            }
+            if(!flag){
+                if((i9 * 2) % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
+                setBlockAndNotifyAdequately(world, posstart.add(i6, i9, i7 * HBLplusorminus), toporbottom);
+                i8++;
+                i5++;
             }
         }
     }
