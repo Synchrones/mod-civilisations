@@ -98,7 +98,6 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
 
 
 
-
             }
             else if(bridgelenghtz > i2){
                 i2 = bridgelenghtz;
@@ -124,22 +123,23 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
                     boolean flag = false;
                     if(i8 > i3) { //change the x coordinate at the right bloc
                         if(bridgelenghtx < 0) i9--; else i9++;
+                        i7--;// if the x coord change, the z doesn't
                         i8 = 0;
-                        if(i11 % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
-                        setBlockAndNotifyAdequately(world, posstart.add(i9, i11, i7 - 1), toporbottom);
+                        if((i11 * 2) % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
+                        setBlockAndNotifyAdequately(world, posstart.add(i9, i11, i7), toporbottom);
                         flag = true;
                     }
 
                     if(i10 > i4) { //change the y coordinate at the right bloc
                         if(bridgelenghty < 0) i11 = i11 - 0.5; else i11 = i11 + 0.5;
+                        i7--;// if the y coord change, the z doesn't
                         i10 = 0;
-                        setBlockAndNotifyAdequately(world, posstart.add(i9, i11, i7 - 1), doubleslab);
+                        if((i11 * 2) % 2 == 0) toporbottom = slabbottom; else toporbottom = doubleslab;
+                        setBlockAndNotifyAdequately(world, posstart.add(i9, i11, i7), doubleslab);
                         flag =true;
                     }
                     if(!flag){
-                        if(i11 % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
-                        if(i9 < 0) i7 = i7 + i9 * -1 ; else i7 = i7 + i9; // if the y or the x coord change, the z doesn't change so we calculate the number of block to substract to get the correct z pos
-                        if(i11 < 0) i7 = i7 + (int)(i11 * 2) * -1 ; else i7 = i7 + (int)i11 * 2; //same as previous line
+                        if((i11 * 2) % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
                         setBlockAndNotifyAdequately(world, posstart.add(i9, i11, i7), toporbottom);
                         i10++;
                         i8++;
