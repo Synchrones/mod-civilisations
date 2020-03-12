@@ -33,7 +33,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         BlockPos pos2 = pos.add(15, 0, -11);
         generateStructure(worldIn, pos2.add(0, getSurfaceBlock(worldIn, pos2), 0), "richhouse1");
         generateStructure(worldIn, pos2.add(-4,getSurfaceBlock(worldIn, pos2) + 24,-4), "lupunatoptree");
-        genBridge(worldIn, pos.add(11, 13, 0), pos.add(9, 14, -10));
+        genBridge(worldIn, pos.add(11, 13, 0), pos.add(0, 14, -3));
 
 
 
@@ -85,6 +85,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         }
         return y;
     }
+
     private void genBridge(World world, BlockPos posstart, BlockPos posend){
         int bridgelenghtx = posend.getX() - posstart.getX();
         int bridgelenghty = posend.getY() - posstart.getY();
@@ -96,23 +97,24 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
             if(bridgelenghtz < 0){
                 if(bridgelenghtz * -1 > i2){
                     i2 = bridgelenghtz * -1;
-                    genBridgeBlocks(world, posstart, i2, bridgelenghtz, bridgelenghtx, bridgelenghty, -1);
+                    genBridgeBlocks(world, posstart, i2, bridgelenghtz, bridgelenghtx, bridgelenghty, -1, "z");
                 }
                 else{
-                    if(bridgelenghtx < 0) genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, -1); else genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, 1);
+                    if(bridgelenghtx < 0) genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, -1,"x"); else genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, 1, "x");
                 }
             }
             else if(bridgelenghtz > i2){
                 i2 = bridgelenghtz;
-                genBridgeBlocks(world, posstart, i2, bridgelenghtz, bridgelenghtx, bridgelenghty, 1);
+                genBridgeBlocks(world, posstart, i2, bridgelenghtz, bridgelenghtx, bridgelenghty, 1, "z");
             }
             else{
-                if(bridgelenghtx < 0) genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, -1); else genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, 1);
+                if(bridgelenghtx < 0) genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, -1, "x"); else genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, 1,"x");
             }
         }
     }
 
-    private void genBridgeBlocks(World world, BlockPos posstart, int i2, int highestbridgelenght, int lowestbridgelenght, int bridgelenghty, int HBLplusorminus){
+
+    private void genBridgeBlocks(World world, BlockPos posstart, int i2, int highestbridgelenght, int lowestbridgelenght, int bridgelenghty, int HBLplusorminus, String dominantface){
         int i3;
         if(highestbridgelenght < 0) highestbridgelenght = highestbridgelenght * -1;
         if(lowestbridgelenght != 0){
@@ -129,26 +131,33 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         IBlockState toporbottom;
         for(int i7 = 0; i7 < i2 ; i7++ ){
             boolean flag = false;
+            boolean flag2 = false;
             if(i5 > i3) { //change the x or z coordinate at the right bloc
                 if(lowestbridgelenght < 0) i6--; else i6++;
                 i7--;// if the x or z coord change, the other one doesn't
                 i5 = 0;
                 if((i9 * 2) % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
-                setBlockAndNotifyAdequately(world, posstart.add(i6 , i9, i7 * HBLplusorminus), toporbottom);
+
+                if(dominantface.equals("z"))setBlockAndNotifyAdequately(world, posstart.add(i6 , i9, i7 * HBLplusorminus), toporbottom);//pos the block (we must check if the "dominantface" is x or z)
+                else setBlockAndNotifyAdequately(world, posstart.add(i7 * HBLplusorminus , i9, i6), toporbottom);
                 flag = true;
+                flag2 = true;
             }
 
             if(i8 > i4) { //change the y coordinate at the right bloc
                 if(bridgelenghty < 0) i9 = i9 - 0.5; else i9 = i9 + 0.5;
-                i7--;// if the y coord change, the z or x doesn't
+                if(!flag2)i7--;// if the y coord change, the z or x doesn't (it doesn't substract if the other coordinate change too)
                 i8 = 0;
                 if((i9 * 2) % 2 == 0) toporbottom = slabbottom; else toporbottom = doubleslab;
-                setBlockAndNotifyAdequately(world, posstart.add(i6 , i9, i7 * HBLplusorminus), toporbottom);
+
+                if(dominantface.equals("z"))setBlockAndNotifyAdequately(world, posstart.add(i6 , i9, i7 * HBLplusorminus), toporbottom);//pos the block (we must check if the "dominantface" is x or z)
+                else setBlockAndNotifyAdequately(world, posstart.add(i7 * HBLplusorminus , i9, i6), toporbottom);
                 flag =true;
             }
             if(!flag){
                 if((i9 * 2) % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
-                setBlockAndNotifyAdequately(world, posstart.add(i6, i9, i7 * HBLplusorminus), toporbottom);
+                if(dominantface.equals("z"))setBlockAndNotifyAdequately(world, posstart.add(i6 , i9, i7 * HBLplusorminus), toporbottom);//pos the block (we must check if the "dominantface" is x or z)
+                else setBlockAndNotifyAdequately(world, posstart.add(i7 * HBLplusorminus , i9, i6), toporbottom);
                 i8++;
                 i5++;
             }
