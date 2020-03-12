@@ -21,6 +21,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
     public static final IBlockState slabtop = ModBlocks.lupunaSlabHalf.getDefaultState().withProperty(CVLSTSlabs.HALF, BlockSlab.EnumBlockHalf.TOP);
     public static final IBlockState slabbottom = ModBlocks.lupunaSlabHalf.getDefaultState().withProperty(CVLSTSlabs.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
     public static final IBlockState doubleslab = ModBlocks.lupunaSlabDouble.getDefaultState();
+    public static final IBlockState fence = ModBlocks.LupunaFence.getDefaultState();
 
 
 
@@ -138,8 +139,17 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
                 i5 = 0;
                 if((i9 * 2) % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
 
-                if(dominantface.equals("z"))setBlockAndNotifyAdequately(world, posstart.add(i6 , i9, i7 * HBLplusorminus), toporbottom);//pos the block (we must check if the "dominantface" is x or z)
-                else setBlockAndNotifyAdequately(world, posstart.add(i7 * HBLplusorminus , i9, i6), toporbottom);
+                if(dominantface.equals("z")){
+                    setBlockAndNotifyAdequately(world, posstart.add(i6 + 1 , i9, i7 * HBLplusorminus ), fence);
+                    setBlockAndNotifyAdequately(world, posstart.add(i6 - 1, i9, i7 * HBLplusorminus), fence);
+                    setBlockAndNotifyAdequately(world, posstart.add(i6 , i9, i7 * HBLplusorminus), toporbottom);//pos the block (we must check if the "dominantface" is x or z)
+
+                }
+                else {
+                    setBlockAndNotifyAdequately(world, posstart.add(i7 * HBLplusorminus , i9, i6 + 1), fence);
+                    setBlockAndNotifyAdequately(world, posstart.add(i7 * HBLplusorminus , i9, i6 - 1), fence);
+                    setBlockAndNotifyAdequately(world, posstart.add(i7 * HBLplusorminus , i9, i6), toporbottom);
+                }
                 flag = true;
                 flag2 = true;
             }
@@ -150,14 +160,33 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
                 i8 = 0;
                 if((i9 * 2) % 2 == 0) toporbottom = slabbottom; else toporbottom = doubleslab;
 
-                if(dominantface.equals("z"))setBlockAndNotifyAdequately(world, posstart.add(i6 , i9, i7 * HBLplusorminus), toporbottom);//pos the block (we must check if the "dominantface" is x or z)
-                else setBlockAndNotifyAdequately(world, posstart.add(i7 * HBLplusorminus , i9, i6), toporbottom);
+                if(dominantface.equals("z")){
+                    setBlockAndNotifyAdequately(world, posstart.add(i6 + 1, i9, i7 * HBLplusorminus ), fence);
+                    setBlockAndNotifyAdequately(world, posstart.add(i6 - 1, i9, i7 * HBLplusorminus ), fence);
+                    setBlockAndNotifyAdequately(world, posstart.add(i6 , i9, i7 * HBLplusorminus), toporbottom);//pos the block (we must check if the "dominantface" is x or z)
+
+                }
+                else {
+                    setBlockAndNotifyAdequately(world, posstart.add(i7 * HBLplusorminus , i9, i6 + 1), fence);
+                    setBlockAndNotifyAdequately(world, posstart.add(i7 * HBLplusorminus , i9, i6 - 1), fence);
+                    setBlockAndNotifyAdequately(world, posstart.add(i7 * HBLplusorminus , i9, i6), toporbottom);
+                }
                 flag =true;
             }
+
             if(!flag){
                 if((i9 * 2) % 2 == 0) toporbottom = slabbottom; else toporbottom = slabtop; //check if the number is pair, if true, pos slab top, else bottom
-                if(dominantface.equals("z"))setBlockAndNotifyAdequately(world, posstart.add(i6 , i9, i7 * HBLplusorminus), toporbottom);//pos the block (we must check if the "dominantface" is x or z)
-                else setBlockAndNotifyAdequately(world, posstart.add(i7 * HBLplusorminus , i9, i6), toporbottom);
+                if(dominantface.equals("z")){
+                    setBlockAndNotifyAdequately(world, posstart.add(i6 + 1, i9, i7 * HBLplusorminus), fence);
+                    setBlockAndNotifyAdequately(world, posstart.add(i6 - 1, i9, i7 * HBLplusorminus), fence);
+                    setBlockAndNotifyAdequately(world, posstart.add(i6 , i9, i7 * HBLplusorminus), toporbottom);//pos the block (we must check if the "dominantface" is x or z)
+
+                }
+                else{
+                    setBlockAndNotifyAdequately(world, posstart.add(i7 * HBLplusorminus , i9, i6 + 1), fence);
+                    setBlockAndNotifyAdequately(world, posstart.add(i7 * HBLplusorminus , i9, i6 - 1), fence);
+                    setBlockAndNotifyAdequately(world, posstart.add(i7 * HBLplusorminus , i9, i6), toporbottom);
+                }
                 i8++;
                 i5++;
             }
