@@ -34,7 +34,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         BlockPos pos2 = pos.add(15, 0, -11);
         generateStructure(worldIn, pos2.add(0, getSurfaceBlock(worldIn, pos2), 0), "richhouse1");
         generateStructure(worldIn, pos2.add(-4, getSurfaceBlock(worldIn, pos2) + 24, -4), "lupunatoptree");
-        genBridge(worldIn, pos.add(11, 13, 0), pos.add(11, 13, -15));
+        genBridge(worldIn, pos.add(11, 13, 0), pos.add(11, 17, -7));
 
 
 
@@ -71,8 +71,8 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
     }
     protected int getSurfaceBlock(World world, BlockPos pos){
         int i;
-        int y=-1;
-        int i2=0;
+        int y = -1;
+        int i2 = 0;
         boolean topBlock = false;
         for ( i=255; i>=63; i--) {
             IBlockState state = world.getBlockState(pos.add(0, i, 0));
@@ -81,7 +81,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
                 i2++;
             }
             if (topBlock && (i2 == 1)) {
-                y=i;
+                y = i;
             }
         }
         return y;
@@ -91,54 +91,46 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         int bridgelenghtx = posend.getX() - posstart.getX();
         int bridgelenghty = posend.getY() - posstart.getY();
         int bridgelenghtz = posend.getZ() - posstart.getZ();
-        if(bridgelenghty != 0){
-            int i2;
+        if(Math.abs(bridgelenghty) * 2 > Math.abs(bridgelenghtz)){ //if true, the y variation is too high, so we need to do a different bridge
+            genBridgewithoutyvariation(world, posstart, posstart.add(bridgelenghtx, 0, bridgelenghtz), bridgelenghtx, 0, bridgelenghtz);
+            
+        }
+        else {
+            if (bridgelenghty != 0) {
+                int i2;
 
-            if(bridgelenghtx < 0)i2 = bridgelenghtx * -1; else i2 = bridgelenghtx;
-            if(bridgelenghtz < 0){
-                if(bridgelenghtz * -1 > i2){
-                    i2 = bridgelenghtz * -1;
-                    genBridgeBlocks(world, posstart, i2, bridgelenghtz, bridgelenghtx, bridgelenghty, -1, "z");
+                i2 = Math.abs(bridgelenghtx);
+                if (bridgelenghtz < 0) {
+                    if (bridgelenghtz * -1 > i2) {
+                        i2 = bridgelenghtz * -1;
+                        genBridgeBlocks(world, posstart, i2, bridgelenghtz, bridgelenghtx, bridgelenghty, -1, "z");
+                    } else {
+                        if (bridgelenghtx < 0)
+                            genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, -1, "x");
+                        else genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, 1, "x");
+                    }
+                } else if (bridgelenghtz > i2) {
+                    i2 = bridgelenghtz;
+                    genBridgeBlocks(world, posstart, i2, bridgelenghtz, bridgelenghtx, bridgelenghty, 1, "z");
+                } else {
+                    if (bridgelenghtx < 0)
+                        genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, -1, "x");
+                    else genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, 1, "x");
                 }
-                else{
-                    if(bridgelenghtx < 0) genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, -1,"x"); else genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, 1, "x");
-                }
-            }
-            else if(bridgelenghtz > i2){
-                i2 = bridgelenghtz;
-                genBridgeBlocks(world, posstart, i2, bridgelenghtz, bridgelenghtx, bridgelenghty, 1, "z");
-            }
-            else{
-                if(bridgelenghtx < 0) genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, -1, "x"); else genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, 1,"x");
+            } else {
+                genBridgewithoutyvariation(world, posstart, posend, bridgelenghtx, bridgelenghty, bridgelenghtz);
             }
         }
+    }
 
-
-
-        else{
-            int i2;
-
-            if (bridgelenghtx < 0) i2 = bridgelenghtx * -1;
-            else i2 = bridgelenghtx;
-            if (bridgelenghtz < 0) {
-                if (bridgelenghtz * -1 > i2) {
-                    i2 = bridgelenghtz * -1;
-                    genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtz / 2, bridgelenghtx / 2, bridgelenghty - 1, -1, "z");
-                    genBridgeBlocks(world, posstart.add(bridgelenghtx / 2,-1,bridgelenghtz / 2), i2 / 2, bridgelenghtz / 2, bridgelenghtx / 2, bridgelenghty + 1, -1, "z");
-                } else {
-                    if (bridgelenghtx < 0) {
-                        genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty - 1, -1, "x");
-                        genBridgeBlocks(world, posstart.add(bridgelenghtx / 2, -1, bridgelenghtz / 2), i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty + 1, -1, "x");
-                    }
-                    else {
-                        genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty - 1, 1, "x");
-                        genBridgeBlocks(world, posstart.add(bridgelenghtx / 2, -1, bridgelenghtz / 2), i2 / 2, bridgelenghtx/ 2, bridgelenghtz / 2, bridgelenghty + 1, 1, "x");
-                    }
-                }
-            } else if (bridgelenghtz > i2) {
-                i2 = bridgelenghtz;
-                genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtz / 2, bridgelenghtx / 2, bridgelenghty - 1, 1, "z");
-                genBridgeBlocks(world, posstart.add(bridgelenghtx / 2, -1, bridgelenghtz / 2), i2 / 2, bridgelenghtz / 2, bridgelenghtx / 2, bridgelenghty + 1, 1, "z");
+    private void genBridgewithoutyvariation(World world, BlockPos posstart, BlockPos posend, int bridgelenghtx, int bridgelenghty, int bridgelenghtz){
+        int i2;
+        i2 = Math.abs(bridgelenghtx);
+        if (bridgelenghtz < 0) {
+            if (bridgelenghtz * -1 > i2) {
+                i2 = bridgelenghtz * -1;
+                genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtz / 2, bridgelenghtx / 2, bridgelenghty - 1, -1, "z");
+                genBridgeBlocks(world, posstart.add(bridgelenghtx / 2,-1,bridgelenghtz / 2), i2 / 2, bridgelenghtz / 2, bridgelenghtx / 2, bridgelenghty + 1, -1, "z");
             } else {
                 if (bridgelenghtx < 0) {
                     genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty - 1, -1, "x");
@@ -146,27 +138,47 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
                 }
                 else {
                     genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty - 1, 1, "x");
-                    genBridgeBlocks(world, posstart.add(bridgelenghtx / 2, -1, bridgelenghtz / 2), i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty + 1, 1, "x");
+                    genBridgeBlocks(world, posstart.add(bridgelenghtx / 2, -1, bridgelenghtz / 2), i2 / 2, bridgelenghtx/ 2, bridgelenghtz / 2, bridgelenghty + 1, 1, "x");
                 }
             }
+        } else if (bridgelenghtz > i2) {
+            i2 = bridgelenghtz;
+            genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtz / 2, bridgelenghtx / 2, bridgelenghty - 1, 1, "z");
+            genBridgeBlocks(world, posstart.add(bridgelenghtx / 2, -1, bridgelenghtz / 2), i2 / 2, bridgelenghtz / 2, bridgelenghtx / 2, bridgelenghty + 1, 1, "z");
+        } else {
+            if (bridgelenghtx < 0) {
+                genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty - 1, -1, "x");
+                genBridgeBlocks(world, posstart.add(bridgelenghtx / 2, -1, bridgelenghtz / 2), i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty + 1, -1, "x");
+            }
+            else {
+                genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty - 1, 1, "x");
+                genBridgeBlocks(world, posstart.add(bridgelenghtx / 2, -1, bridgelenghtz / 2), i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty + 1, 1, "x");
+            }
+        }
 
-
-
-
-
+        if((bridgelenghtx / 2) % 2 != 0 || (bridgelenghtz / 2) % 2 != 0) { // a block is missing when we divide a number not pair
+            if (Math.abs(bridgelenghtx) < Math.abs(bridgelenghtz)) if(bridgelenghtz < 0) setBlockAndNotifyAdequately(world, posend.add(0, 0, +1), slabbottom); else setBlockAndNotifyAdequately(world, posend.add(0, 0, -1), slabbottom);
+            else if(bridgelenghtx < 0) setBlockAndNotifyAdequately(world, posend.add(+1, 0, 0), slabbottom); else setBlockAndNotifyAdequately(world, posend.add(-1, 0, 0), slabbottom);
         }
     }
 
 
+
+
+
+
+
+
+
     private void genBridgeBlocks(World world, BlockPos posstart, int i2, int highestbridgelenght, int lowestbridgelenght, int bridgelenghty, int HBLplusorminus, String dominantface){
         int i3;
-        if(highestbridgelenght < 0) highestbridgelenght = highestbridgelenght * -1;
+        highestbridgelenght = Math.abs(highestbridgelenght);
         if(lowestbridgelenght != 0){
             if(lowestbridgelenght < 0) i3 = i2 / lowestbridgelenght * -1; else i3 = i2 / lowestbridgelenght; // here we got the number of blocks between the x or z coordinate of the bridge will change
         }
         else i3 = highestbridgelenght + lowestbridgelenght + 1;
         int i4;
-        if(bridgelenghty < 0) i4 = i2 / (bridgelenghty -1)  * -1; else i4 = i2 / (bridgelenghty * 2 + 1);  // here we got the number of blocks between the y coordinate of the bridge will change
+        if(bridgelenghty < 0) i4 = i2 / (bridgelenghty * 2 -1)  * -1; else i4 = i2 / (bridgelenghty * 2 + 1);  // here we got the number of blocks between the y coordinate of the bridge will change
 
         int i5 = 0;
         int i6 = 0;
