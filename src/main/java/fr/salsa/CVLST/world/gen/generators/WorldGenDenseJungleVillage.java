@@ -4,10 +4,12 @@ import fr.salsa.CVLST.blocks.slabs.CVLSTSlabs;
 import fr.salsa.CVLST.init.ModBlocks;
 import fr.salsa.CVLST.utils.References;
 import fr.salsa.CVLST.utils.interfaces.IStructure;
+import net.minecraft.block.BlockLadder;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -34,7 +36,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         BlockPos pos2 = pos.add(15, 0, -11);
         generateStructure(worldIn, pos2.add(0, getSurfaceBlock(worldIn, pos2), 0), "richhouse1");
         generateStructure(worldIn, pos2.add(-4, getSurfaceBlock(worldIn, pos2) + 24, -4), "lupunatoptree");
-        genBridge(worldIn, pos.add(11, 13, 0), pos.add(11, 17, -7));
+        genBridge(worldIn, pos.add(11, 13, 0), pos.add(11, 5, -7));
 
 
 
@@ -93,7 +95,23 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         int bridgelenghtz = posend.getZ() - posstart.getZ();
         if(Math.abs(bridgelenghty) * 2 > Math.abs(bridgelenghtz)){ //if true, the y variation is too high, so we need to do a different bridge
             genBridgewithoutyvariation(world, posstart, posstart.add(bridgelenghtx, 0, bridgelenghtz), bridgelenghtx, 0, bridgelenghtz);
-            
+            int i2 = 1;
+            if(bridgelenghty < 0){
+                i2 = -1;
+            }
+
+            if (Math.abs(bridgelenghtx) < Math.abs(bridgelenghtz))
+                if(bridgelenghtz < 0){
+                genLadder(world, posend.add(0, -bridgelenghty, 1), posend.add(0,0, 1), bridgelenghty, "z", i2, i2);
+            }
+            else genLadder(world, posend.add(0, -bridgelenghty, -1), posend.add(0,0, -1), bridgelenghty, "z", i2 * - 1, i2);
+            else if(bridgelenghtx < 0){
+                genLadder(world, posend.add(1, -bridgelenghty, 0), posend.add(0,0, 1), bridgelenghty, "x", i2, i2);
+            }
+            else genLadder(world, posend.add(- 1, -bridgelenghty, 0), posend.add(0,0, 1), bridgelenghty, "x", i2 * - 1, i2);
+
+
+
         }
         else {
             if (bridgelenghty != 0) {
@@ -157,8 +175,8 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         }
 
         if((bridgelenghtx / 2) % 2 != 0 || (bridgelenghtz / 2) % 2 != 0) { // a block is missing when we divide a number not pair
-            if (Math.abs(bridgelenghtx) < Math.abs(bridgelenghtz)) if(bridgelenghtz < 0) setBlockAndNotifyAdequately(world, posend.add(0, 0, +1), slabbottom); else setBlockAndNotifyAdequately(world, posend.add(0, 0, -1), slabbottom);
-            else if(bridgelenghtx < 0) setBlockAndNotifyAdequately(world, posend.add(+1, 0, 0), slabbottom); else setBlockAndNotifyAdequately(world, posend.add(-1, 0, 0), slabbottom);
+            if (Math.abs(bridgelenghtx) < Math.abs(bridgelenghtz)) if(bridgelenghtz < 0) setBlockAndNotifyAdequately(world, posend.add(0, 0, 1), slabbottom); else setBlockAndNotifyAdequately(world, posend.add(0, 0, -1), slabbottom);
+            else if(bridgelenghtx < 0) setBlockAndNotifyAdequately(world, posend.add(1, 0, 0), slabbottom); else setBlockAndNotifyAdequately(world, posend.add(-1, 0, 0), slabbottom);
         }
     }
 
@@ -244,6 +262,46 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
                 }
                 i8++;
                 i5++;
+            }
+        }
+    }
+
+    private  void genLadder(World world, BlockPos ladderstart, BlockPos ladderend, int height, String dominantface, int plusorminus, int yplusorminus){
+        height = Math.abs(height);
+        int i2 = 0;
+        for(int i = 0; i < height; i++){
+            if(yplusorminus < 0) i2--; else i2++;
+            if(dominantface.equals("z")){
+                setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,0), ModBlocks.lupunaPlank.getDefaultState());
+                setBlockAndNotifyAdequately(world, ladderstart.add(1, i2 ,0), fence);
+                setBlockAndNotifyAdequately(world, ladderstart.add(- 1, i2 ,0), fence);
+                setBlockAndNotifyAdequately(world, ladderstart.add(1, i2 ,plusorminus), fence);
+                setBlockAndNotifyAdequately(world, ladderstart.add(- 1, i2 ,plusorminus), fence);
+                IBlockState state = world.getBlockState(ladderstart.add(0,i2,plusorminus));
+                if(state.getBlock() != ModBlocks.lupunaSlabHalf || state.getBlock() != ModBlocks.lupunaSlabDouble){
+                    if(yplusorminus < 0){
+                        if(plusorminus < 0)setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,plusorminus), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.NORTH));
+                        else setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,plusorminus), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.SOUTH));
+                    }
+                    else if(plusorminus < 0)setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,plusorminus), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.SOUTH));
+                    else setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,plusorminus), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.NORTH));
+                }
+            }
+            else{
+                setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,0), ModBlocks.lupunaPlank.getDefaultState());
+                setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,1), fence);
+                setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,- 1), fence);
+                setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,1), fence);
+                setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,- 1), fence);
+                IBlockState state = world.getBlockState(ladderstart.add(plusorminus, i2,0));
+                if(state.getBlock() != ModBlocks.lupunaSlabHalf || state.getBlock() != ModBlocks.lupunaSlabDouble){
+                    if(yplusorminus < 0){
+                        if(plusorminus < 0)setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.EAST));
+                        else setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.WEST));
+                    }
+                    else if(plusorminus < 0)setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.WEST));
+                    else setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.EAST));
+                }
             }
         }
     }
