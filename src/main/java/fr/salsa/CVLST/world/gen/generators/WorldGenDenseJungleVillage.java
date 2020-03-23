@@ -33,8 +33,8 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         setBlockAndNotifyAdequately(worldIn, pos.add(11, 13, 0), ModBlocks.lupunaSlabHalf.getDefaultState());
         BlockPos pos2 = pos.add(15, 0, -11);
         generateStructure(worldIn, pos2.add(0, getSurfaceBlock(worldIn, pos2), 0), "richhouse1");
-        generateStructure(worldIn, pos2.add(-4,getSurfaceBlock(worldIn, pos2) + 24,-4), "lupunatoptree");
-        genBridge(worldIn, pos.add(11, 13, 0), pos.add(0, 14, -3));
+        generateStructure(worldIn, pos2.add(-4, getSurfaceBlock(worldIn, pos2) + 24, -4), "lupunatoptree");
+        genBridge(worldIn, pos.add(11, 13, 0), pos.add(11, 13, -15));
 
 
 
@@ -111,6 +111,49 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
             else{
                 if(bridgelenghtx < 0) genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, -1, "x"); else genBridgeBlocks(world, posstart, i2, bridgelenghtx, bridgelenghtz, bridgelenghty, 1,"x");
             }
+        }
+
+
+
+        else{
+            int i2;
+
+            if (bridgelenghtx < 0) i2 = bridgelenghtx * -1;
+            else i2 = bridgelenghtx;
+            if (bridgelenghtz < 0) {
+                if (bridgelenghtz * -1 > i2) {
+                    i2 = bridgelenghtz * -1;
+                    genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtz / 2, bridgelenghtx / 2, bridgelenghty - 1, -1, "z");
+                    genBridgeBlocks(world, posstart.add(bridgelenghtx / 2,-1,bridgelenghtz / 2), i2 / 2, bridgelenghtz / 2, bridgelenghtx / 2, bridgelenghty + 1, -1, "z");
+                } else {
+                    if (bridgelenghtx < 0) {
+                        genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty - 1, -1, "x");
+                        genBridgeBlocks(world, posstart.add(bridgelenghtx / 2, -1, bridgelenghtz / 2), i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty + 1, -1, "x");
+                    }
+                    else {
+                        genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty - 1, 1, "x");
+                        genBridgeBlocks(world, posstart.add(bridgelenghtx / 2, -1, bridgelenghtz / 2), i2 / 2, bridgelenghtx/ 2, bridgelenghtz / 2, bridgelenghty + 1, 1, "x");
+                    }
+                }
+            } else if (bridgelenghtz > i2) {
+                i2 = bridgelenghtz;
+                genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtz / 2, bridgelenghtx / 2, bridgelenghty - 1, 1, "z");
+                genBridgeBlocks(world, posstart.add(bridgelenghtx / 2, -1, bridgelenghtz / 2), i2 / 2, bridgelenghtz / 2, bridgelenghtx / 2, bridgelenghty + 1, 1, "z");
+            } else {
+                if (bridgelenghtx < 0) {
+                    genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty - 1, -1, "x");
+                    genBridgeBlocks(world, posstart.add(bridgelenghtx / 2, -1, bridgelenghtz / 2), i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty + 1, -1, "x");
+                }
+                else {
+                    genBridgeBlocks(world, posstart, i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty - 1, 1, "x");
+                    genBridgeBlocks(world, posstart.add(bridgelenghtx / 2, -1, bridgelenghtz / 2), i2 / 2, bridgelenghtx / 2, bridgelenghtz / 2, bridgelenghty + 1, 1, "x");
+                }
+            }
+
+
+
+
+
         }
     }
 
