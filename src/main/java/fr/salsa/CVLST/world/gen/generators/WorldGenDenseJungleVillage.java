@@ -33,22 +33,28 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         generateStructure(worldIn, pos, "townhall");
         generateStructure(worldIn, pos.add(0, 32, -2), "townhalltoptree");
         setBlockAndNotifyAdequately(worldIn, pos.add(11, 13, 0), ModBlocks.lupunaSlabHalf.getDefaultState());
-        BlockPos pos2 = pos.add(15, 0, -11);
-        generateStructure(worldIn, pos2.add(0, getSurfaceBlock(worldIn, pos2), 0), "richhouse1");
-        generateStructure(worldIn, pos2.add(-4, getSurfaceBlock(worldIn, pos2) + 24, -4), "lupunatoptree");
-        genBridge(worldIn, pos.add(11, 13, 0), pos.add(11, 5, -7));
+
+        BlockPos pos2 = pos.add(7, 0, -16 + rand.nextInt(4));
+        generateStructure(worldIn, pos2.add(0,getSurfaceBlock(worldIn, pos2),0), "intersection");
+        generateStructure(worldIn, pos2.add(-5, getSurfaceBlock(worldIn, pos2) + 15, -6), "lupunatoptree");
+        genBridge(worldIn, pos.add(11, 13, 0), pos2.add(4, 13, 6));
+
+        int i = rand.nextInt(4);
+        BlockPos pos3 = pos2.add(16 + i, 0, -3);
+
+        generateStructure(worldIn, pos3.add(0, getSurfaceBlock(worldIn, pos3), 0), "richhouse1");
+        generateStructure(worldIn, pos3.add(-4, getSurfaceBlock(worldIn, pos3) + 24, -4), "lupunatoptree");
+        genBridge(worldIn, pos2.add(7, 13, 3), pos3.add(0,11,5));
+
+
+
+
 
 
 
         if(rand.nextInt(1) == 0){
 
         }
-
-
-
-
-
-
 
 
 
@@ -71,18 +77,17 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
             template.addBlocksToWorldChunk(world, pos, settings);
         }
     }
+
     protected int getSurfaceBlock(World world, BlockPos pos){
         int i;
         int y = -1;
-        int i2 = 0;
         boolean topBlock = false;
-        for ( i=255; i>=63; i--) {
+        for ( i = 255; i >= 63; i--) {
             IBlockState state = world.getBlockState(pos.add(0, i, 0));
             if (!state.getBlock().equals(Blocks.AIR)) {
                 topBlock=true;
-                i2++;
             }
-            if (topBlock && (i2 == 1)) {
+            if (topBlock) {
                 y = i;
             }
         }
@@ -93,22 +98,25 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         int bridgelenghtx = posend.getX() - posstart.getX();
         int bridgelenghty = posend.getY() - posstart.getY();
         int bridgelenghtz = posend.getZ() - posstart.getZ();
-        if(Math.abs(bridgelenghty) * 2 > Math.abs(bridgelenghtz)){ //if true, the y variation is too high, so we need to do a different bridge
+        int dominantface = bridgelenghtx;
+
+        if (Math.abs(bridgelenghtx) < Math.abs(bridgelenghtz)) dominantface = bridgelenghtz;
+        if(Math.abs(bridgelenghty) * 2 > dominantface){ //if true, the y variation is too high, so we need to do a different bridge
             genBridgewithoutyvariation(world, posstart, posstart.add(bridgelenghtx, 0, bridgelenghtz), bridgelenghtx, 0, bridgelenghtz);
             int i2 = 1;
             if(bridgelenghty < 0){
                 i2 = -1;
             }
 
-            if (Math.abs(bridgelenghtx) < Math.abs(bridgelenghtz))
+            if (dominantface == Math.abs(bridgelenghtz))
                 if(bridgelenghtz < 0){
-                genLadder(world, posend.add(0, -bridgelenghty, 1), posend.add(0,0, 1), bridgelenghty, "z", i2, i2);
-            }
-            else genLadder(world, posend.add(0, -bridgelenghty, -1), posend.add(0,0, -1), bridgelenghty, "z", i2 * - 1, i2);
+                genLadder(world, posend.add(0, -bridgelenghty, 1), bridgelenghty, "z", i2, i2);
+                }
+                else genLadder(world, posend.add(0, -bridgelenghty, -1), bridgelenghty, "z", i2 * - 1, i2);
             else if(bridgelenghtx < 0){
-                genLadder(world, posend.add(1, -bridgelenghty, 0), posend.add(0,0, 1), bridgelenghty, "x", i2, i2);
+                genLadder(world, posend.add(1, -bridgelenghty, 0), bridgelenghty, "x", i2, i2);
             }
-            else genLadder(world, posend.add(- 1, -bridgelenghty, 0), posend.add(0,0, 1), bridgelenghty, "x", i2 * - 1, i2);
+            else genLadder(world, posend.add(- 1, -bridgelenghty, 0), bridgelenghty, "x", i2 * - 1, i2);
 
 
 
@@ -266,7 +274,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         }
     }
 
-    private  void genLadder(World world, BlockPos ladderstart, BlockPos ladderend, int height, String dominantface, int plusorminus, int yplusorminus){
+    private  void genLadder(World world, BlockPos ladderstart, int height, String dominantface, int plusorminus, int yplusorminus){
         height = Math.abs(height);
         int i2 = 0;
         for(int i = 0; i < height; i++){
@@ -296,11 +304,11 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
                 IBlockState state = world.getBlockState(ladderstart.add(plusorminus, i2,0));
                 if(state.getBlock() != ModBlocks.lupunaSlabHalf || state.getBlock() != ModBlocks.lupunaSlabDouble){
                     if(yplusorminus < 0){
-                        if(plusorminus < 0)setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.EAST));
-                        else setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.WEST));
+                        if(plusorminus < 0)setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.WEST));
+                        else setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.EAST));
                     }
-                    else if(plusorminus < 0)setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.WEST));
-                    else setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.EAST));
+                    else if(plusorminus < 0)setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.EAST));
+                    else setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.WEST));
                 }
             }
         }
