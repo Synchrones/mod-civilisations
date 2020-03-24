@@ -23,6 +23,31 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
     public static final IBlockState slabtop = ModBlocks.lupunaSlabHalf.getDefaultState().withProperty(CVLSTSlabs.HALF, BlockSlab.EnumBlockHalf.TOP);
     public static final IBlockState slabbottom = ModBlocks.lupunaSlabHalf.getDefaultState().withProperty(CVLSTSlabs.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
     public static final IBlockState doubleslab = ModBlocks.lupunaSlabDouble.getDefaultState();
+    public statpackage fr.salsa.CVLST.world.gen.generators;
+
+import fr.salsa.CVLST.blocks.slabs.CVLSTSlabs;
+import fr.salsa.CVLST.init.ModBlocks;
+import fr.salsa.CVLST.utils.References;
+import fr.salsa.CVLST.utils.interfaces.IStructure;
+import net.minecraft.block.BlockLadder;
+import net.minecraft.block.BlockSlab;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraft.world.gen.feature.WorldGenerator;
+import net.minecraft.world.gen.structure.template.Template;
+import net.minecraft.world.gen.structure.template.TemplateManager;
+
+import java.util.Random;
+
+public class WorldGenDenseJungleVillage extends WorldGenerator implements IStructure {
+    public static final IBlockState slabtop = ModBlocks.lupunaSlabHalf.getDefaultState().withProperty(CVLSTSlabs.HALF, BlockSlab.EnumBlockHalf.TOP);
+    public static final IBlockState slabbottom = ModBlocks.lupunaSlabHalf.getDefaultState().withProperty(CVLSTSlabs.HALF, BlockSlab.EnumBlockHalf.BOTTOM);
+    public static final IBlockState doubleslab = ModBlocks.lupunaSlabDouble.getDefaultState();
     public static final IBlockState fence = ModBlocks.LupunaFence.getDefaultState();
 
 
@@ -37,14 +62,14 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         BlockPos pos2 = pos.add(7, 0, -16 + rand.nextInt(4));
         generateStructure(worldIn, pos2.add(0,getSurfaceBlock(worldIn, pos2),0), "intersection");
         generateStructure(worldIn, pos2.add(-5, getSurfaceBlock(worldIn, pos2) + 15, -6), "lupunatoptree");
-        genBridge(worldIn, pos.add(11, 13, 0), pos2.add(4, 13, 6));
+        genBridge(worldIn, pos.add(11, 13, 0), pos2.add(4, 12, 6));
 
         int i = rand.nextInt(4);
         BlockPos pos3 = pos2.add(16 + i, 0, -3);
 
         generateStructure(worldIn, pos3.add(0, getSurfaceBlock(worldIn, pos3), 0), "richhouse1");
         generateStructure(worldIn, pos3.add(-4, getSurfaceBlock(worldIn, pos3) + 24, -4), "lupunatoptree");
-        genBridge(worldIn, pos2.add(7, 13, 3), pos3.add(0,11,5));
+        genBridge(worldIn, pos2.add(8, 12, 3), pos3.add(0,9,5));
 
 
 
@@ -147,6 +172,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
                 genBridgewithoutyvariation(world, posstart, posend, bridgelenghtx, bridgelenghty, bridgelenghtz);
             }
         }
+        setBlockAndNotifyAdequately(world, posend, ModBlocks.lupunaPlank.getDefaultState());
     }
 
     private void genBridgewithoutyvariation(World world, BlockPos posstart, BlockPos posend, int bridgelenghtx, int bridgelenghty, int bridgelenghtz){
@@ -187,12 +213,6 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
             else if(bridgelenghtx < 0) setBlockAndNotifyAdequately(world, posend.add(1, 0, 0), slabbottom); else setBlockAndNotifyAdequately(world, posend.add(-1, 0, 0), slabbottom);
         }
     }
-
-
-
-
-
-
 
 
 
