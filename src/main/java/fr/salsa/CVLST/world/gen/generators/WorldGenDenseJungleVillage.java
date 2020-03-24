@@ -123,9 +123,9 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         int bridgelenghtx = posend.getX() - posstart.getX();
         int bridgelenghty = posend.getY() - posstart.getY();
         int bridgelenghtz = posend.getZ() - posstart.getZ();
-        int dominantface = bridgelenghtx;
+        int dominantface = Math.abs(bridgelenghtx);
 
-        if (Math.abs(bridgelenghtx) < Math.abs(bridgelenghtz)) dominantface = bridgelenghtz;
+        if (Math.abs(bridgelenghtx) < Math.abs(bridgelenghtz)) dominantface = Math.abs(bridgelenghtz);
         if(Math.abs(bridgelenghty) * 2 > dominantface){ //if true, the y variation is too high, so we need to do a different bridge
             genBridgewithoutyvariation(world, posstart, posstart.add(bridgelenghtx, 0, bridgelenghtz), bridgelenghtx, 0, bridgelenghtz);
             int i2 = 1;
