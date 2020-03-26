@@ -103,20 +103,20 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         }
     }
 
-    protected int getSurfaceBlock(World world, BlockPos pos){
+    private int getSurfaceBlock(World world, BlockPos pos){
         int i;
+        int i2 = pos.getY();
+        int i3 = 0;
         int y = -1;
-        boolean topBlock = false;
+        pos = pos.add(0,256 - pos.getY(),0);
         for ( i = 255; i >= 63; i--) {
-            IBlockState state = world.getBlockState(pos.add(0, i, 0));
-            if (!state.getBlock().equals(Blocks.AIR)) {
-                topBlock=true;
-            }
-            if (topBlock) {
+            i3++;
+            if (world.getBlockState(pos.add(0, -i3,0)).getBlock() == Blocks.GRASS || world.getBlockState(pos.add(0, -i3,0)).getBlock() == Blocks.STONE || world.getBlockState(pos.add(0, -i3,0)).getBlock() == Blocks.DIRT) {
                 y = i;
+                return y - i2;
             }
         }
-        return y;
+        return y - i2;
     }
 
     private void genBridge(World world, BlockPos posstart, BlockPos posend){
