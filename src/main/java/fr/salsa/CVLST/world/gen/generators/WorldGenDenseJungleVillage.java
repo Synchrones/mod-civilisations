@@ -134,13 +134,13 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
 
             if (dominantface == Math.abs(bridgelenghtz))
                 if(bridgelenghtz < 0){
-                genLadder(world, posend.add(0, -bridgelenghty, 1), bridgelenghty, "z", i2, i2);
+                genLadder(world, posend.add(0, -bridgelenghty, 1), bridgelenghty, "z", - 1, i2);
                 }
-                else genLadder(world, posend.add(0, -bridgelenghty, -1), bridgelenghty, "z", i2 * - 1, i2);
+                else genLadder(world, posend.add(0, -bridgelenghty, -1), bridgelenghty, "z",1, i2);
             else if(bridgelenghtx < 0){
-                genLadder(world, posend.add(1, -bridgelenghty, 0), bridgelenghty, "x", i2, i2);
+                genLadder(world, posend.add(1, -bridgelenghty, 0), bridgelenghty, "x", - 1, i2);
             }
-            else genLadder(world, posend.add(- 1, -bridgelenghty, 0), bridgelenghty, "x", i2 * - 1, i2);
+            else genLadder(world, posend.add(- 1, -bridgelenghty, 0), bridgelenghty, "x",1, i2);
 
 
 
