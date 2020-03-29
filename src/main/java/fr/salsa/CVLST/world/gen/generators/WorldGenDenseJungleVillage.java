@@ -148,7 +148,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         pos = pos.add(0,256 - pos.getY(),0);
         for ( i = 255; i >= 63; i--) {
             i3++;
-            if (world.getBlockState(pos.add(0, -i3,0)).getBlock() == Blocks.GRASS || world.getBlockState(pos.add(0, -i3,0)).getBlock() == Blocks.STONE || world.getBlockState(pos.add(0, -i3,0)).getBlock() == Blocks.DIRT) {
+            if (world.getBlockState(pos.add(0, -i3,0)).getBlock() == Blocks.GRASS || world.getBlockState(pos.add(0, -i3,0)).getBlock() == Blocks.STONE || world.getBlockState(pos.add(0, -i3,0)).getBlock() == Blocks.DIRT || world.getBlockState(pos.add(0, -i3,0)).getBlock() == Blocks.WATER) {
                 y = i;
                 return y - i2;
             }
@@ -171,13 +171,13 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
 
             if (dominantface == Math.abs(bridgelenghtz))
                 if(bridgelenghtz < 0){
-                genLadder(world, posend.add(0, -bridgelenghty, 1), bridgelenghty, "z", - 1, i2);
+                genLadder(world, posend.add(0, -bridgelenghty, 1), bridgelenghty, "z", 1, i2);
                 }
-                else genLadder(world, posend.add(0, -bridgelenghty, -1), bridgelenghty, "z",1, i2);
+                else genLadder(world, posend.add(0, -bridgelenghty, -1), bridgelenghty, "z",- 1, i2);
             else if(bridgelenghtx < 0){
-                genLadder(world, posend.add(1, -bridgelenghty, 0), bridgelenghty, "x", - 1, i2);
+                genLadder(world, posend.add(1, -bridgelenghty, 0), bridgelenghty, "x", 1, i2);
             }
-            else genLadder(world, posend.add(- 1, -bridgelenghty, 0), bridgelenghty, "x",1, i2);
+            else genLadder(world, posend.add(- 1, -bridgelenghty, 0), bridgelenghty, "x",- 1, i2);
 
 
 
@@ -339,32 +339,32 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
                 setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,0), ModBlocks.lupunaPlank.getDefaultState());
                 setBlockAndNotifyAdequately(world, ladderstart.add(1, i2 ,0), fence);
                 setBlockAndNotifyAdequately(world, ladderstart.add(- 1, i2 ,0), fence);
-                setBlockAndNotifyAdequately(world, ladderstart.add(1, i2 ,plusorminus), fence);
-                setBlockAndNotifyAdequately(world, ladderstart.add(- 1, i2 ,plusorminus), fence);
-                IBlockState state = world.getBlockState(ladderstart.add(0,i2,plusorminus));
+                setBlockAndNotifyAdequately(world, ladderstart.add(1, i2 , plusorminus * yplusorminus), fence);
+                setBlockAndNotifyAdequately(world, ladderstart.add(- 1, i2 , plusorminus * yplusorminus), fence);
+                IBlockState state = world.getBlockState(ladderstart.add(0, i2, plusorminus * yplusorminus));
                 if(state.getBlock() != ModBlocks.lupunaSlabHalf || state.getBlock() != ModBlocks.lupunaSlabDouble){
                     if(yplusorminus < 0){
-                        if(plusorminus < 0)setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,plusorminus), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.NORTH));
-                        else setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,plusorminus), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.SOUTH));
+                        if(plusorminus < 0)setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,plusorminus* yplusorminus), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.SOUTH));
+                        else setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,plusorminus* yplusorminus), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.NORTH));
                     }
-                    else if(plusorminus < 0)setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,plusorminus), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.SOUTH));
-                    else setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,plusorminus), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.NORTH));
+                    else if(plusorminus < 0)setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,plusorminus* yplusorminus), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.NORTH));
+                    else setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,plusorminus* yplusorminus), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.SOUTH));
                 }
             }
             else{
                 setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,0), ModBlocks.lupunaPlank.getDefaultState());
                 setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,1), fence);
                 setBlockAndNotifyAdequately(world, ladderstart.add(0, i2 ,- 1), fence);
-                setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,1), fence);
-                setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,- 1), fence);
-                IBlockState state = world.getBlockState(ladderstart.add(plusorminus, i2,0));
+                setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus* yplusorminus, i2 ,1), fence);
+                setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus* yplusorminus, i2 ,- 1), fence);
+                IBlockState state = world.getBlockState(ladderstart.add(plusorminus* yplusorminus, i2,0));
                 if(state.getBlock() != ModBlocks.lupunaSlabHalf || state.getBlock() != ModBlocks.lupunaSlabDouble){
                     if(yplusorminus < 0){
-                        if(plusorminus < 0)setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.WEST));
-                        else setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.EAST));
+                        if(plusorminus< 0)setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus* yplusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.EAST));
+                        else setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus* yplusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.WEST));
                     }
-                    else if(plusorminus < 0)setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.EAST));
-                    else setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.WEST));
+                    else if(plusorminus< 0)setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus* yplusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.WEST));
+                    else setBlockAndNotifyAdequately(world, ladderstart.add(plusorminus, i2 ,0), Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.EAST));
                 }
             }
         }
