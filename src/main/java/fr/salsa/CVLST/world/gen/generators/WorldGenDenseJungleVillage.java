@@ -77,17 +77,36 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
 
         generateStructure(worldIn, pos5, "intersection");
         generateStructure(worldIn, pos5.add(-5, 15, -6), "lupunatoptree");
-        genBridge(worldIn, pos2.add(3, 13, 0), pos5.add(4, 13, 6));
+        genBridge(worldIn, pos2.add(3, 13, 0), pos5.add(3, 13, 6));
 
 
         if(rand.nextInt(2) == 0){
 
-            BlockPos pos6 = pos5.add(-16 - rand.nextInt(5), 0, -10 - rand.nextInt(5));
+            BlockPos pos6 = pos5.add(-16 - rand.nextInt(5), 0, -2 - rand.nextInt(5));
             pos6 = pos6.add(0, getSurfaceBlock(worldIn, pos6), 0);
-            
+
             generateStructure(worldIn, pos6, "intersection");
             generateStructure(worldIn, pos6.add(-5, 15, -6), "lupunatoptree");
             genBridge(worldIn, pos5.add(0, 13, 3), pos6.add(8, 13, 3));
+
+
+            BlockPos pos7 = pos6.add(rand.nextInt(5), 0, -16 - rand.nextInt(5));
+            pos7 = pos7.add(0, getSurfaceBlock(worldIn, pos7), 0);
+
+            generateStructure(worldIn, pos7, "intersection");
+            generateStructure(worldIn, pos7.add(-5, 15, -6), "lupunatoptree");
+            genBridge(worldIn, pos6.add(3, 13, 0), pos7.add(4, 13, 6));
+
+            if(rand.nextInt(1) == 0){
+                BlockPos pos8 = pos7.add(10 + rand.nextInt(5), 0, - 4 + rand.nextInt(2));
+                pos8 = pos8.add(0, getSurfaceBlock(worldIn, pos8), 0);
+
+                generateStructure(worldIn, pos8, "poorhouse1");
+                generateStructure(worldIn, pos8.add(-3, 26, -3), "lupunatoptree");
+                genBridge(worldIn, pos7.add(8, 13, 3), pos8.add(1, 13, 5));
+
+            }
+
         }
 
 
@@ -311,7 +330,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         }
     }
 
-    private  void genLadder(World world, BlockPos ladderstart, int height, String dominantface, int plusorminus, int yplusorminus){
+    private  void genLadder(World world, BlockPos ladderstart, int height, String dominantface, int plusorminus, int yplusorminus){ //TODO fix ladder(yes again)
         height = Math.abs(height);
         int i2 = 0;
         for(int i = 0; i < height; i++){
