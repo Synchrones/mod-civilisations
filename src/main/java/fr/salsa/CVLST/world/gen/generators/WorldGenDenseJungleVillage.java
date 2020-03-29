@@ -64,6 +64,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
             generateStructure(worldIn, pos4, "richhouse3");
             generateStructure(worldIn, pos4.add(-4,24, -5), "lupunatoptree");
             genBridge(worldIn, pos2.add(0, 13, 3), pos4.add(9,10,4));
+
         }
         else{
             generateStructure(worldIn, pos4, "specialrichhouse");
@@ -71,6 +72,23 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
             genBridge(worldIn, pos2.add(0, 13, 3), pos4.add(9,9,7));
         }
 
+        BlockPos pos5 = pos2.add(rand.nextInt(5), 0, -16 - rand.nextInt(5));
+        pos5 = pos5.add(0, getSurfaceBlock(worldIn, pos5), 0);
+
+        generateStructure(worldIn, pos5, "intersection");
+        generateStructure(worldIn, pos5.add(-5, 15, -6), "lupunatoptree");
+        genBridge(worldIn, pos2.add(3, 13, 0), pos5.add(4, 13, 6));
+
+
+        if(rand.nextInt(2) == 0){
+
+            BlockPos pos6 = pos5.add(-16 - rand.nextInt(5), 0, -10 - rand.nextInt(5));
+            pos6 = pos6.add(0, getSurfaceBlock(worldIn, pos6), 0);
+            
+            generateStructure(worldIn, pos6, "intersection");
+            generateStructure(worldIn, pos6.add(-5, 15, -6), "lupunatoptree");
+            genBridge(worldIn, pos5.add(0, 13, 3), pos6.add(8, 13, 3));
+        }
 
 
 
