@@ -31,6 +31,8 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
 
     @Override
     public boolean generate(World worldIn, Random rand, BlockPos pos) {
+        int i = 0;
+        int i2 = 0;
         generateStructure(worldIn, pos, "townhall");
         generateStructure(worldIn, pos.add(0, 32, -2), "townhalltoptree");
         setBlockAndNotifyAdequately(worldIn, pos.add(11, 13, 0), ModBlocks.lupunaSlabHalf.getDefaultState());
@@ -41,8 +43,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         generateStructure(worldIn, pos2.add(-5, 15, -6), "lupunatoptree");
         genBridge(worldIn, pos.add(11, 13, 0), pos2.add(4, 13, 6));
 
-        int i = rand.nextInt(4);
-        BlockPos pos3 = pos2.add(16 + i, 0, -3);
+        BlockPos pos3 = pos2.add(16 + rand.nextInt(4), 0, -3);
         pos3 = pos3.add(0,getSurfaceBlock(worldIn, pos3), 0);
 
         if(rand.nextInt(2) == 0){
@@ -55,6 +56,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
             generateStructure(worldIn, pos3, "richhouse2");
             generateStructure(worldIn, pos3.add(-4,25, -5), "lupunatoptree");
             genBridge(worldIn, pos2.add(8, 13, 3), pos3.add(0,10,3));
+            i = 1;
         }
 
         BlockPos pos4 = pos2.add(-20 + rand.nextInt(5), 0, -5 + rand.nextInt(5));
@@ -70,6 +72,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
             generateStructure(worldIn, pos4, "specialrichhouse");
             generateStructure(worldIn, pos4.add(-5,23, -5), "specialrichhousetoptree");
             genBridge(worldIn, pos2.add(0, 13, 3), pos4.add(9,9,7));
+            i2 = 1;
         }
 
         BlockPos pos5 = pos2.add(rand.nextInt(5), 0, -16 - rand.nextInt(5));
@@ -97,19 +100,74 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
             generateStructure(worldIn, pos7.add(-5, 15, -6), "lupunatoptree");
             genBridge(worldIn, pos6.add(3, 13, 0), pos7.add(4, 13, 6));
 
-            if(rand.nextInt(1) == 0){
-                BlockPos pos8 = pos7.add(10 + rand.nextInt(5), 0, - 4 + rand.nextInt(2));
-                pos8 = pos8.add(0, getSurfaceBlock(worldIn, pos8), 0);
 
-                generateStructure(worldIn, pos8, "poorhouse1");
-                generateStructure(worldIn, pos8.add(-3, 26, -3), "lupunatoptree");
-                genBridge(worldIn, pos7.add(8, 13, 3), pos8.add(1, 13, 5));
+            BlockPos pos8 = pos7.add(10 + rand.nextInt(5), 0, - 4 + rand.nextInt(2));
+            pos8 = pos8.add(0, getSurfaceBlock(worldIn, pos8), 0);
 
+            generateStructure(worldIn, pos8, "poorhouse1");
+            generateStructure(worldIn, pos8.add(-3, 26, -3), "lupunatoptree");
+            genBridge(worldIn, pos7.add(8, 13, 3), pos8.add(1, 13, 5));
+
+            if(rand.nextInt(2) == 0){
+                BlockPos pos9 = pos7.add(- 3 + rand.nextInt(5), 0, -20 - rand.nextInt(5));
+                pos9 = pos9.add(0, getSurfaceBlock(worldIn, pos9), 0);
+
+                generateStructure(worldIn, pos9, "poorhouse2");
+                generateStructure(worldIn, pos9.add(-3, 25, -3), "lupunatoptree");
+                genBridge(worldIn, pos7.add(3, 13, 0), pos9.add(6, 12, 9));
+            }
+            else{
+                BlockPos pos9 = pos7.add(-20 + rand.nextInt(5), 0, -5 + rand.nextInt(5));
+                pos9 = pos9.add(0, getSurfaceBlock(worldIn, pos9), 0);
+
+                generateStructure(worldIn, pos9, "poorhouse2");
+                generateStructure(worldIn, pos9.add(-3, 25, -3), "lupunatoptree");
+                genBridge(worldIn, pos7.add(0, 13, 3), pos9.add(9, 12, 6));
             }
 
+            BlockPos pos10 = pos6.add(-20 + rand.nextInt(5), 0, -5 + rand.nextInt(5));
+            pos10 = pos10.add(0, getSurfaceBlock(worldIn, pos10), 0);
+
+            generateStructure(worldIn, pos10, "forge");
+            generateStructure(worldIn, pos10.add(-3, 19, -3), "lupunatoptree");
+            genBridge(worldIn, pos6.add(0, 13, 3), pos10.add(11, 10, 5));
+
+
+
+            BlockPos pos11 = pos5.add(10 + rand.nextInt(5), 0, - 4 + rand.nextInt(2));
+            pos11 = pos11.add(0, getSurfaceBlock(worldIn, pos11), 0);
+
+            generateStructure(worldIn, pos11, "intersection");
+            generateStructure(worldIn, pos11.add(-5, 15, -6), "lupunatoptree");
+            genBridge(worldIn, pos5.add(7, 13, 3), pos6.add(0, 13, 3));
+
+            BlockPos pos12 = pos11.add(10 + rand.nextInt(5), 0, - 4 + rand.nextInt(2));
+            pos12 = pos12.add(0, getSurfaceBlock(worldIn, pos12), 0);
+            if(i2 == 0){
+                generateStructure(worldIn, pos4, "specialrichhouse");
+                generateStructure(worldIn, pos4.add(-5,23, -5), "specialrichhousetoptree");
+                genBridge(worldIn, pos10.add(7, 13, 3), pos11.add(1,9,7));
+            }
+            else{
+                if(i == 0){
+                    generateStructure(worldIn, pos12, "richhouse2");
+                    generateStructure(worldIn, pos12.add(-4,25, -5), "lupunatoptree");
+                    genBridge(worldIn, pos11.add(8, 13, 3), pos12.add(0,10,3));
+                }
+                else{
+                    generateStructure(worldIn, pos12, "richhouse1");
+                    generateStructure(worldIn, pos12.add(-4,24, -4), "lupunatoptree");
+                    genBridge(worldIn, pos11.add(8, 13, 3), pos12.add(0,11 ,5));
+                }
+            }
+
+            BlockPos pos13 = pos11.add(rand.nextInt(5), 0, -16 - rand.nextInt(5));
+            pos13 = pos13.add(0, getSurfaceBlock(worldIn, pos13), 0);
+
+            generateStructure(worldIn, pos12, "traderhouse");
+            generateStructure(worldIn, pos12.add(-3,19, -4), "lupunatoptree");
+            genBridge(worldIn, pos11.add(3, 13, 0), pos12.add(6,7 ,14));
         }
-
-
 
 
 
@@ -144,7 +202,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         int i;
         int i2 = pos.getY();
         int i3 = 0;
-        int y = -1;
+        int y = 0;
         pos = pos.add(0,256 - pos.getY(),0);
         for ( i = 255; i >= 63; i--) {
             i3++;
@@ -153,7 +211,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
                 return y - i2;
             }
         }
-        return y - i2;
+        return 63 - i2;
     }
 
     private void genBridge(World world, BlockPos posstart, BlockPos posend){
@@ -330,7 +388,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
         }
     }
 
-    private  void genLadder(World world, BlockPos ladderstart, int height, String dominantface, int plusorminus, int yplusorminus){ //TODO fix ladder(yes again)
+    private  void genLadder(World world, BlockPos ladderstart, int height, String dominantface, int plusorminus, int yplusorminus){
         height = Math.abs(height);
         int i2 = 0;
         for(int i = 0; i < height; i++){
