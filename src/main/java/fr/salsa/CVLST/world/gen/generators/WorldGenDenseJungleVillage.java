@@ -33,6 +33,7 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
     public boolean generate(World worldIn, Random rand, BlockPos pos) {
         int i = 0;
         int i2 = 0;
+        pos = pos.add(0, getSurfaceBlock(worldIn, pos),0);
         generateStructure(worldIn, pos, "townhall");
         generateStructure(worldIn, pos.add(0, 32, -2), "townhalltoptree");
         setBlockAndNotifyAdequately(worldIn, pos.add(11, 13, 0), ModBlocks.lupunaSlabHalf.getDefaultState());
@@ -75,112 +76,105 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
             i2 = 1;
         }
 
-        BlockPos pos5 = pos2.add(rand.nextInt(5), 0, -16 - rand.nextInt(5));
+        BlockPos pos5 = pos2.add(-3 + rand.nextInt(5), 0, -16 - rand.nextInt(5));
         pos5 = pos5.add(0, getSurfaceBlock(worldIn, pos5), 0);
 
         generateStructure(worldIn, pos5, "intersection");
         generateStructure(worldIn, pos5.add(-5, 15, -6), "lupunatoptree");
         genBridge(worldIn, pos2.add(3, 13, 0), pos5.add(3, 13, 6));
 
+        BlockPos pos6 = pos5.add(-16 - rand.nextInt(5), 0, -1 + rand.nextInt(2));
+        pos6 = pos6.add(0, getSurfaceBlock(worldIn, pos6), 0);
 
-        if(rand.nextInt(2) == 0){
-
-            BlockPos pos6 = pos5.add(-16 - rand.nextInt(5), 0, -2 - rand.nextInt(5));
-            pos6 = pos6.add(0, getSurfaceBlock(worldIn, pos6), 0);
-
-            generateStructure(worldIn, pos6, "intersection");
-            generateStructure(worldIn, pos6.add(-5, 15, -6), "lupunatoptree");
-            genBridge(worldIn, pos5.add(0, 13, 3), pos6.add(8, 13, 3));
+        generateStructure(worldIn, pos6, "intersection");
+        generateStructure(worldIn, pos6.add(-5, 15, -6), "lupunatoptree");
+        genBridge(worldIn, pos5.add(0, 13, 3), pos6.add(8, 13, 3));
 
 
-            BlockPos pos7 = pos6.add(rand.nextInt(5), 0, -16 - rand.nextInt(5));
-            pos7 = pos7.add(0, getSurfaceBlock(worldIn, pos7), 0);
+        BlockPos pos7 = pos6.add(rand.nextInt(5), 0, -16 - rand.nextInt(5));
+        pos7 = pos7.add(0, getSurfaceBlock(worldIn, pos7), 0);
 
-            generateStructure(worldIn, pos7, "intersection");
-            generateStructure(worldIn, pos7.add(-5, 15, -6), "lupunatoptree");
-            genBridge(worldIn, pos6.add(3, 13, 0), pos7.add(4, 13, 6));
+        generateStructure(worldIn, pos7, "intersection");
+        generateStructure(worldIn, pos7.add(-5, 15, -6), "lupunatoptree");
+        genBridge(worldIn, pos6.add(3, 13, 0), pos7.add(4, 13, 6));
 
+        BlockPos pos8 = pos7.add(10 + rand.nextInt(5), 0, - 4 + rand.nextInt(2));
+        pos8 = pos8.add(0, getSurfaceBlock(worldIn, pos8), 0);
 
-            BlockPos pos8 = pos7.add(10 + rand.nextInt(5), 0, - 4 + rand.nextInt(2));
-            pos8 = pos8.add(0, getSurfaceBlock(worldIn, pos8), 0);
+        generateStructure(worldIn, pos8, "poorhouse1");
+        generateStructure(worldIn, pos8.add(-3, 26, -3), "lupunatoptree");
+        genBridge(worldIn, pos7.add(8, 13, 3), pos8.add(1, 13, 5));
 
-            generateStructure(worldIn, pos8, "poorhouse1");
-            generateStructure(worldIn, pos8.add(-3, 26, -3), "lupunatoptree");
-            genBridge(worldIn, pos7.add(8, 13, 3), pos8.add(1, 13, 5));
+        BlockPos pos10 = pos7.add(-20 + rand.nextInt(5), 0, -5 + rand.nextInt(5));
+        pos10 = pos10.add(0, getSurfaceBlock(worldIn, pos10), 0);
 
-            if(rand.nextInt(2) == 0){
-                BlockPos pos9 = pos7.add(- 3 + rand.nextInt(5), 0, -20 - rand.nextInt(5));
-                pos9 = pos9.add(0, getSurfaceBlock(worldIn, pos9), 0);
-
-                generateStructure(worldIn, pos9, "poorhouse2");
-                generateStructure(worldIn, pos9.add(-3, 25, -3), "lupunatoptree");
-                genBridge(worldIn, pos7.add(3, 13, 0), pos9.add(6, 12, 9));
-            }
-            else{
-                BlockPos pos9 = pos7.add(-20 + rand.nextInt(5), 0, -5 + rand.nextInt(5));
-                pos9 = pos9.add(0, getSurfaceBlock(worldIn, pos9), 0);
-
-                generateStructure(worldIn, pos9, "poorhouse2");
-                generateStructure(worldIn, pos9.add(-3, 25, -3), "lupunatoptree");
-                genBridge(worldIn, pos7.add(0, 13, 3), pos9.add(9, 12, 6));
-            }
-
-            BlockPos pos10 = pos6.add(-20 + rand.nextInt(5), 0, -5 + rand.nextInt(5));
-            pos10 = pos10.add(0, getSurfaceBlock(worldIn, pos10), 0);
-
-            generateStructure(worldIn, pos10, "forge");
-            generateStructure(worldIn, pos10.add(-3, 19, -3), "lupunatoptree");
-            genBridge(worldIn, pos6.add(0, 13, 3), pos10.add(11, 10, 5));
-
-
-
-            BlockPos pos11 = pos5.add(10 + rand.nextInt(5), 0, - 4 + rand.nextInt(2));
-            pos11 = pos11.add(0, getSurfaceBlock(worldIn, pos11), 0);
-
-            generateStructure(worldIn, pos11, "intersection");
-            generateStructure(worldIn, pos11.add(-5, 15, -6), "lupunatoptree");
-            genBridge(worldIn, pos5.add(7, 13, 3), pos6.add(0, 13, 3));
-
-            BlockPos pos12 = pos11.add(10 + rand.nextInt(5), 0, - 4 + rand.nextInt(2));
-            pos12 = pos12.add(0, getSurfaceBlock(worldIn, pos12), 0);
-            if(i2 == 0){
-                generateStructure(worldIn, pos4, "specialrichhouse");
-                generateStructure(worldIn, pos4.add(-5,23, -5), "specialrichhousetoptree");
-                genBridge(worldIn, pos10.add(7, 13, 3), pos11.add(1,9,7));
-            }
-            else{
-                if(i == 0){
-                    generateStructure(worldIn, pos12, "richhouse2");
-                    generateStructure(worldIn, pos12.add(-4,25, -5), "lupunatoptree");
-                    genBridge(worldIn, pos11.add(8, 13, 3), pos12.add(0,10,3));
-                }
-                else{
-                    generateStructure(worldIn, pos12, "richhouse1");
-                    generateStructure(worldIn, pos12.add(-4,24, -4), "lupunatoptree");
-                    genBridge(worldIn, pos11.add(8, 13, 3), pos12.add(0,11 ,5));
-                }
-            }
-
-            BlockPos pos13 = pos11.add(rand.nextInt(5), 0, -16 - rand.nextInt(5));
-            pos13 = pos13.add(0, getSurfaceBlock(worldIn, pos13), 0);
-
-            generateStructure(worldIn, pos12, "traderhouse");
-            generateStructure(worldIn, pos12.add(-3,19, -4), "lupunatoptree");
-            genBridge(worldIn, pos11.add(3, 13, 0), pos12.add(6,7 ,14));
-        }
-
+        generateStructure(worldIn, pos10, "poorhouse2");
+        generateStructure(worldIn, pos10.add(-3, 25, -3), "lupunatoptree");
+        genBridge(worldIn, pos7.add(0, 13, 3), pos10.add(9, 12, 6));
 
 
 
         if(rand.nextInt(2) == 0){
+            BlockPos pos9 = pos7.add(- 3 + rand.nextInt(5), 0, -20 - rand.nextInt(5));
+            pos9 = pos9.add(0, getSurfaceBlock(worldIn, pos9), 0);
+
+            generateStructure(worldIn, pos9, "poorhouse1");
+            generateStructure(worldIn, pos9.add(-3, 26, -3), "lupunatoptree");
+            genBridge(worldIn,  pos7.add(3, 13, 0), pos9.add(5, 13, 10));
+
+        }
+        else{
+            BlockPos pos9 = pos7.add(- 3 + rand.nextInt(5), 0, -20 - rand.nextInt(5));
+            pos9 = pos9.add(0, getSurfaceBlock(worldIn, pos9), 0);
+
+            generateStructure(worldIn, pos9, "poorhouse2");
+            generateStructure(worldIn, pos9.add(-3, 25, -3), "lupunatoptree");
+            genBridge(worldIn, pos7.add(3, 13, 0), pos9.add(6, 12, 9));
 
         }
 
+        BlockPos pos11 = pos6.add(-20 + rand.nextInt(5), 0, -2 + rand.nextInt(4));
+        pos11 = pos11.add(0, getSurfaceBlock(worldIn, pos11), 0);
+
+        generateStructure(worldIn, pos11, "forge");
+        generateStructure(worldIn, pos11.add(-3, 19, -3), "lupunatoptree");
+        genBridge(worldIn, pos6.add(0, 13, 3), pos11.add(11, 10, 5));
 
 
 
+        BlockPos pos12 = pos5.add(16 + rand.nextInt(5), 0, 0);
+        pos12 = pos12.add(0, getSurfaceBlock(worldIn, pos12), 0);
 
+        generateStructure(worldIn, pos12, "intersection");
+        generateStructure(worldIn, pos12.add(-5, 15, -6), "lupunatoptree");
+        genBridge(worldIn, pos5.add(7, 13, 3), pos12.add(0, 13, 3));
 
+        BlockPos pos13 = pos12.add(20 + rand.nextInt(5), 0, - 4 + rand.nextInt(2));
+        pos13 = pos13.add(0, getSurfaceBlock(worldIn, pos13), 0);
+        if(i2 == 0){
+            generateStructure(worldIn, pos13, "specialrichhouse");
+            generateStructure(worldIn, pos13.add(-5,23, -5), "specialrichhousetoptree");
+            genBridge(worldIn, pos12.add(7, 13, 3), pos13.add(1,9,7));
+        }
+        else{
+            if(i == 0){
+                generateStructure(worldIn, pos13, "richhouse2");
+                generateStructure(worldIn, pos13.add(-4,25, -5), "lupunatoptree");
+                genBridge(worldIn, pos12.add(8, 13, 3), pos13.add(0,10,3));
+            }
+            else{
+                generateStructure(worldIn, pos13, "richhouse1");
+                generateStructure(worldIn, pos13.add(-4,24, -4), "lupunatoptree");
+                genBridge(worldIn, pos12.add(8, 13, 3), pos13.add(0,11 ,5));
+            }
+        }
+
+        BlockPos pos14 = pos12.add(-3 + rand.nextInt(5), 0, -20 - rand.nextInt(5));
+        pos14 = pos14.add(0, getSurfaceBlock(worldIn, pos14), 0);
+
+        generateStructure(worldIn, pos14, "traderhouse");
+        generateStructure(worldIn, pos14.add(-3,25, 0), "lupunatoptree");
+        genBridge(worldIn, pos12.add(3, 13, 0), pos14.add(6,12 ,14));
 
         return true;
     }
@@ -208,10 +202,10 @@ public class WorldGenDenseJungleVillage extends WorldGenerator implements IStruc
             i3++;
             if (world.getBlockState(pos.add(0, -i3,0)).getBlock() == Blocks.GRASS || world.getBlockState(pos.add(0, -i3,0)).getBlock() == Blocks.STONE || world.getBlockState(pos.add(0, -i3,0)).getBlock() == Blocks.DIRT || world.getBlockState(pos.add(0, -i3,0)).getBlock() == Blocks.WATER) {
                 y = i;
-                return y - i2;
+                return y - i2+ 1 ;
             }
         }
-        return 63 - i2;
+        return 63 - i2+ 1;
     }
 
     private void genBridge(World world, BlockPos posstart, BlockPos posend){
