@@ -14,6 +14,6 @@ public class CVLSTFence extends BlockFence {
         setRegistryName(name).setUnlocalizedName(name);
         setCreativeTab(ModMain.modtab);
         ModBlocks.BLOCKS.add(this);
-        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(name));
     }
 }
