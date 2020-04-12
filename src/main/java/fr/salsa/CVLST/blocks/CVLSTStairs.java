@@ -14,7 +14,7 @@ public class CVLSTStairs extends BlockStairs {
         this.useNeighborBrightness = true;
         this.setCreativeTab(ModMain.modtab);
         this.setSoundType(SoundType.WOOD);
-        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(name));
         ModBlocks.BLOCKS.add(this);
     }
 }
