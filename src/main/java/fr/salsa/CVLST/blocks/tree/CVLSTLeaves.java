@@ -29,7 +29,7 @@ public class CVLSTLeaves extends BlockLeaves {
         setCreativeTab(ModMain.modtab);
         setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, Boolean.valueOf(true)).withProperty(DECAYABLE, Boolean.valueOf(true)));
         ModBlocks.BLOCKS.add(this);
-        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(name));
     }
     @Override
     protected BlockStateContainer createBlockState() {
