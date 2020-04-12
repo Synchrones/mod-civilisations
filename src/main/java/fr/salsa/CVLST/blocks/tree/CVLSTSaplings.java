@@ -36,7 +36,7 @@ public class CVLSTSaplings extends BlockBush implements IGrowable {
         setCreativeTab(ModMain.modtab);
         setSoundType(SoundType.PLANT);
         ModBlocks.BLOCKS.add(this);
-        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(name));
     }
 
     @Override
