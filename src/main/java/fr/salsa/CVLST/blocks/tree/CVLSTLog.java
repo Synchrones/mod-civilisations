@@ -16,7 +16,7 @@ public class CVLSTLog extends BlockLog {
         this.setHarvestLevel("axe", 0);
         setCreativeTab(ModMain.modtab);
         ModBlocks.BLOCKS.add(this);
-        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(name));
     }
 
     @Override
