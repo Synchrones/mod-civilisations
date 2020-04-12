@@ -17,6 +17,6 @@ public class CVLSTBlocks extends Block {
         setResistance(resistance);
         setHarvestLevel(harvestType, harvestLevel);
         ModBlocks.BLOCKS.add(this);
-        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
+        ModItems.ITEMS.add(new ItemBlock(this).setRegistryName(name));
     }
 }
